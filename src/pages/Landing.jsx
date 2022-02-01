@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Logo from '../logo.svg';
 
-export default function Home() {
+import Heading from '../components/Heading';
+import TopSearchBar from '../components/TopSearchBar';
+
+
+export default function Landing(props) {
   const weatherResponse = {
     "location": {
       "name": "New Delhi",
@@ -2982,58 +2987,76 @@ export default function Home() {
     }
   }
   console.log(weatherResponse);
-  // let localTime = weatherResponse.location.localtime;
-  // let onlyDate = localTime.slice(0, 11);
-  // let today = localTime.getDay();
-  // console.log(localTime)
-
+  const [temperatureUnit, setTemperatureUnit] = useState('celsius');
   return (
     <>
-      <div className="container">
-        <div className="p-3">
-          <p className="">Search Result of weather </p>
-          <p>Location : {weatherResponse.location.name}</p>
-          <p>Region : {weatherResponse.location.region}</p>
-          <p>Country : {weatherResponse.location.country}</p>
-          <p>Local Time : {weatherResponse.location.localtime}</p>
-
-          <p>Time Zone : {weatherResponse.location.tz_id}</p>
-          <p>Lat : {weatherResponse.location.lat}</p>
-          <p>Lon : {weatherResponse.location.lon}</p>
-          <p>Temp C: {weatherResponse.current.temp_c}</p>
-          <p>Temp F: {weatherResponse.current.temp_f}</p>
-          <p>Wind Speed k/h: {weatherResponse.current.wind_kph}</p>
-          <p>Wind Speed m/h: {weatherResponse.current.wind_mph}</p>
-          <p>Wind Degree: {weatherResponse.current.wind_degree}</p>
-          <p>Wind Direction: {weatherResponse.current.wind_dir}</p>
-          <p>Humidity: {weatherResponse.current.humidity}</p>
-          <p>Weather Condition : {weatherResponse.current.condition.text} </p>
-          <img src={weatherResponse.current.condition.icon} alt="" />
-          <p className="">Day or Night : {weatherResponse.current.is_day === 0 ? 'Night' : 'Day'}</p>
-          <h3>Upcoming</h3>
+      <div className="container py-4">
+        <main className="Shadow-lg bg-light rounded-3 overflow-hidden">
           <div className="row">
-            {weatherResponse.forecast.forecastday.map((element, index) => {
-              return (
-                <div className="col-sm-4" key={index}>
-                  <div className="bg-light rounded p-3 shadow-sm">
-                    <p>{weatherResponse.forecast.forecastday[index].date}</p>
-                    <p>Temp C - {weatherResponse.forecast.forecastday[index].day.maxtemp_c} / {weatherResponse.forecast.forecastday[index].day.mintemp_c} </p>
-                    <p>Temp F - {weatherResponse.forecast.forecastday[index].day.maxtemp_f} / {weatherResponse.forecast.forecastday[index].day.mintemp_f} </p>
-                    <ul className="list-group list-group-flush">
-                      {element.hour.map((item, number) => {
-                        return (
-                          <li className="list-group-item" key={number}>{item.time} - {item.temp_c} / {item.temp_f}</li>
-                        )
-                      })}
+            <div className="col-sm-4">
+              <div className="bg-white p-5 d-flex flex-column">
+                <div className="d-flex align-items-center">
+                  <TopSearchBar value='' />
+                </div>
+                <img src={weatherResponse.current.condition.icon} alt="logo" className="img-fluid col-4" />
+                <Heading level="2" content={`${temperatureUnit === 'celsius' ? weatherResponse.current.temp_c : weatherResponse.current.temp_f}`} styleClass='display-3 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°f'}`} />
+                <Heading level="2" content={weatherResponse.location.name} styleClass='h4 text-center fw-light d-flex align-items-center'></Heading>
+                <hr />
+                <p>{weatherResponse.current.condition.text}</p>
+                <p>{weatherResponse.forecast.forecastday[0].day.maxtemp_c} / {weatherResponse.forecast.forecastday[0].day.mintemp_c}</p>
+              </div>
+            </div>
+            <div className="col-sm-8">
+              <div className="d-flex justify-content-between py-4 pe-4">
+                <h3 className='h5 fw-normal border-bottom border-dark pb-1'>Forecast</h3>
+                <div className="d-flex">
+                  <input type="radio" className="btn-check" name="options-outlined" id="success-outlined" autoComplete="off" checked />
+                  <label className="btn btn-outline-dark rounded-pill d-flex justify-content-center p-1" htmlFor="success-outlined">°C</label>
 
-                    </ul>
+                  <input type="radio" className="btn-check" name="options-outlined" id="danger-outlined" autoComplete="off" />
+                  <label className="btn btn-outline-dark rounded-pill d-flex justify-content-center p-1 ms-2" htmlFor="danger-outlined">°F</label>
+                </div>
+              </div>
+
+              {weatherResponse.forecast.forecastday.map((element, index) => {
+                return (
+                  <div className="row">
+                    {
+                      element.hour.map((item, number) => {
+                        return (
+
+                          <div className="col-sm-2" key={number}>
+                            {/* {number % 2  ? ' yes' : ' ' } */}
+                            <div className="bg-white p-3 shadow rounded-3 mb-2 text-center">
+                              <h3 className="h6">{item.time.slice(0, 10)}</h3>
+                              <h3 className="h6">{item.time.slice(10, 16)}</h3>
+                              <img src={element.day.condition.icon} alt="logo" className="img-fluid" />
+                              <p className="mb-0">
+                                <span>{item.temp_c} / {item.temp_f}</span>
+                              </p>
+                            </div>
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+                )
+              })}
+
+              <div className="row mt-3">
+                <div className="col-12">
+                  <h5 className="fw-normal">Today Highlights</h5>
+                </div>
+                <div className="col-sm-4">
+                  <div className="bg-white p-2">
+
                   </div>
                 </div>
-              )
-            })}
+              </div>
+            </div>
           </div>
-        </div>
 
+        </main>
       </div>
     </>
   );
