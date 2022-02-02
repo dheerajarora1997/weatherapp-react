@@ -2988,74 +2988,172 @@ export default function Landing(props) {
   }
   console.log(weatherResponse);
   const [temperatureUnit, setTemperatureUnit] = useState('celsius');
+
+  const switchTempUnit = () => {
+    if (temperatureUnit === 'celsius') {
+      setTemperatureUnit('Fahrenheit')
+    }
+    else {
+      setTemperatureUnit('celsius')
+    }
+  }
   return (
     <>
-      <div className="container py-4">
+      <div className="container pt-3">
         <main className="Shadow-lg bg-light rounded-3 overflow-hidden">
           <div className="row">
             <div className="col-sm-4">
-              <div className="bg-white p-5 d-flex flex-column">
+              <div className="bg-white p-3 d-flex flex-column app-left-block">
                 <div className="d-flex align-items-center">
                   <TopSearchBar value='' />
                 </div>
                 <img src={weatherResponse.current.condition.icon} alt="logo" className="img-fluid col-4" />
-                <Heading level="2" content={`${temperatureUnit === 'celsius' ? weatherResponse.current.temp_c : weatherResponse.current.temp_f}`} styleClass='display-3 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°f'}`} />
+                <Heading level="2" content={`${temperatureUnit === 'celsius' ? weatherResponse.current.temp_c : weatherResponse.current.temp_f}`} styleClass='display-3 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°F'}`} />
                 <Heading level="2" content={weatherResponse.location.name} styleClass='h4 text-center fw-light d-flex align-items-center'></Heading>
+                <p>{weatherResponse.location.country}</p>
+                <p className="">{weatherResponse.location.localtime}</p>
+                <p className="mb-0"><span className="text-muted">Time Zone</span> - {weatherResponse.location.tz_id}</p>
                 <hr />
                 <p>{weatherResponse.current.condition.text}</p>
-                <p>{weatherResponse.forecast.forecastday[0].day.maxtemp_c} / {weatherResponse.forecast.forecastday[0].day.mintemp_c}</p>
+                <p className={`${temperatureUnit === 'celsius' ? '' : 'd-none' }`}>{weatherResponse.forecast.forecastday[0].day.maxtemp_c} / {weatherResponse.forecast.forecastday[0].day.mintemp_c} °C</p>
+                <p className={`${temperatureUnit === 'celsius' ? 'd-none' : '' }`}>{weatherResponse.forecast.forecastday[0].day.maxtemp_f} / {weatherResponse.forecast.forecastday[0].day.mintemp_f} °F</p>
+                <p>Humidity - {weatherResponse.current.humidity}%</p>
+                <div className="progress" style={{ height: "4px" }}>
+                  <div className={`progress-bar bg-${weatherResponse.current.humidity > 60 ? 'danger' : 'warning'}`} role="progressbar" style={{ width: `${weatherResponse.current.humidity}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
               </div>
             </div>
             <div className="col-sm-8">
-              <div className="d-flex justify-content-between py-4 pe-4">
-                <h3 className='h5 fw-normal border-bottom border-dark pb-1'>Forecast</h3>
-                <div className="d-flex">
-                  <input type="radio" className="btn-check" name="options-outlined" id="success-outlined" autoComplete="off" checked />
-                  <label className="btn btn-outline-dark rounded-pill d-flex justify-content-center p-1" htmlFor="success-outlined">°C</label>
-
-                  <input type="radio" className="btn-check" name="options-outlined" id="danger-outlined" autoComplete="off" />
-                  <label className="btn btn-outline-dark rounded-pill d-flex justify-content-center p-1 ms-2" htmlFor="danger-outlined">°F</label>
+              <div className="p-4">
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <ul className="nav nav-tabs" id="myTab" role="tablist">
+                    <li className="nav-item" role="presentation">
+                      <button className="nav-link active" id="today-tab" data-bs-toggle="tab" data-bs-target="#today" type="button" role="tab" aria-controls="today" aria-selected="true">Today</button>
+                    </li>
+                    <li className="nav-item" role="presentation">
+                      <button className="nav-link" id="forecast-tab" data-bs-toggle="tab" data-bs-target="#forecast" type="button" role="tab" aria-controls="forecast" aria-selected="false">Forecast</button>
+                    </li>
+                  </ul>
+                  <h3 className='h5 fw-normal border-bottom border-dark pb-1'></h3>
+                  <div className="d-flex">
+                    <button className="btn btn-warning" onClick={switchTempUnit} >Switch to {temperatureUnit === 'celsius' ? 'Fahrenheit' : 'Celsius'}</button>
+                  </div>
                 </div>
-              </div>
-
-              {weatherResponse.forecast.forecastday.map((element, index) => {
-                return (
+                <div className="d-flex justify-content-between">
                   <div className="row">
-                    {
-                      element.hour.map((item, number) => {
-                        return (
-
-                          <div className="col-sm-2" key={number}>
-                            {/* {number % 2  ? ' yes' : ' ' } */}
-                            <div className="bg-white p-3 shadow rounded-3 mb-2 text-center">
-                              <h3 className="h6">{item.time.slice(0, 10)}</h3>
-                              <h3 className="h6">{item.time.slice(10, 16)}</h3>
-                              <img src={element.day.condition.icon} alt="logo" className="img-fluid" />
-                              <p className="mb-0">
-                                <span>{item.temp_c} / {item.temp_f}</span>
-                              </p>
+                    <div className="tab-content" id="myTabContent">
+                      <div className="tab-pane fade show active" id="today" role="tabpanel" aria-labelledby="today-tab">
+                        <div className="row mt-2">
+                          <div className="col-3">
+                            <div className="bg-white p-4 shadow rounded-3 mb-3 text-center">
+                              <span className="text-muted">{weatherResponse.forecast.forecastday[0].astro.sunrise}</span>
+                              <h3 className="fw-light h6 mb-0 mt-1">Sun Rise</h3>
                             </div>
                           </div>
-                        )
-                      })
-                    }
-                  </div>
-                )
-              })}
-
-              <div className="row mt-3">
-                <div className="col-12">
-                  <h5 className="fw-normal">Today Highlights</h5>
-                </div>
-                <div className="col-sm-4">
-                  <div className="bg-white p-2">
-
+                          <div className="col-3">
+                            <div className="bg-white p-4 shadow rounded-3 mb-3 text-center">
+                              <span className="text-muted">{weatherResponse.forecast.forecastday[0].astro.sunset}</span>
+                              <h3 className="fw-light h6 mb-0 mt-1">Sun Set</h3>
+                            </div>
+                          </div>
+                          <div className="col-3">
+                            <div className="bg-white p-4 shadow rounded-3 mb-3 text-center">
+                              <span className="text-muted">{weatherResponse.current.wind_kph} k/h</span>
+                              <h3 className="fw-light h6 mb-0 mt-1">Wind Speed</h3>
+                            </div>
+                          </div>
+                          <div className="col-3">
+                            <div className="bg-white p-4 shadow rounded-3 mb-3 text-center">
+                              <span className="text-muted">{weatherResponse.current.wind_degree}°</span>
+                              <h3 className="fw-light h6 mb-0 mt-1">Wind Degree</h3>
+                            </div>
+                          </div>
+                          <div className="col-12">
+                            <span className="text-muted">Today Forecast</span>
+                            <hr />
+                          </div>
+                          {weatherResponse.forecast.forecastday[0].hour.map((element, index) => {
+                            return (
+                              <div className={`col-4 ${index % 2 ? 'd-none' : ''}`} key={index}>
+                                <div className="bg-white p-2 shadow rounded-3 mb-3 text-center">
+                                  <div className="row align-items-center">
+                                    <div className="col-sm-4">
+                                      <div className="bg-light rounded">
+                                        <img src={element.condition.icon} alt="logo" className="img-fluid" />
+                                      </div>
+                                    </div>
+                                    <div className="col-sm-8">
+                                      <p className="mb-0 d-flex justify-content-between align-items-center">
+                                        <span>{temperatureUnit === 'celsius' ? element.temp_c : element.temp_f} {temperatureUnit === 'celsius' ? '°C' : '°F'}</span>
+                                        -
+                                        <span className="h6 mb-0 fw-light text-muted">{element.time.slice(10, 16)}</span>
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          })}
+                        </div>
+                      </div>
+                      <div className="tab-pane fade" id="forecast" role="tabpanel" aria-labelledby="forecast-tab">
+                        <div className="row mt-3">
+                          <div className="col-12">
+                          <span className="text-muted">Weekly Forecast</span>
+                          <hr />
+                          </div>
+                          <div className="row">
+                            {weatherResponse.forecast.forecastday.map((element, index) => {
+                              return (
+                                <div className="col-12" key={index}>
+                                  <div className="bg-white shadow rounded-3 mb-3">
+                                    <div className="row align-items-center">
+                                      <div className="col-sm-3">
+                                        <div className="bg-light d-block rounded p-4 text-center">
+                                          <img src={element.day.condition.icon} alt={element.day.condition.text} />
+                                        </div>
+                                      </div>
+                                      <div className="col-sm-9">
+                                        <div className="row mb-3">
+                                          <div className="col-sm-3">
+                                            <span className="text-muted">Date</span>
+                                          </div>
+                                          <div className="col-sm-3">
+                                            <p className="mb-0">{element.date}</p>
+                                          </div>
+                                          <div className="col-sm-3">
+                                            <p className="mb-0">{element.day.condition.text}</p>
+                                          </div>
+                                        </div>
+                                        <div className="row">
+                                          <div className="col-sm-3">
+                                            <span className="text-muted">Max Temp.</span>
+                                          </div>
+                                          <div className="col-sm-3">
+                                            <p className="mb-0">{temperatureUnit === 'celsius' ? element.day.maxtemp_c : element.day.maxtemp_f} {temperatureUnit === 'celsius' ? '°C' : '°F'}</p>
+                                          </div>
+                                          <div className="col-sm-3">
+                                            <span className="text-muted">Min Temp.</span>
+                                          </div>
+                                          <div className="col-sm-3">
+                                            <p className="mb-0">{temperatureUnit === 'celsius' ? element.day.mintemp_c : element.day.mintemp_f} {temperatureUnit === 'celsius' ? '°C' : '°F'}</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              )
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
         </main>
       </div>
     </>
