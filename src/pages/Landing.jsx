@@ -85,7 +85,7 @@ export default function Landing() {
                 <div className="progress" style={{ height: "4px" }}>
                   <div className={`progress-bar bg-${weatherResponse?.current?.humidity > 60 ? 'danger' : 'warning'}`} role="progressbar" style={{ width: `${weatherResponse?.current?.humidity}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <p className="text-muted mt-2 mb-0">Developer : <a href="https://www.linkedin.com/in/dheerajarora1997/" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
+                <p className="text-muted mt-2 mb-0">Developer : <a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
               </div>
             </div>
             <div className="col-sm-8">
@@ -99,7 +99,6 @@ export default function Landing() {
                       <button className="nav-link" id="forecast-tab" data-bs-toggle="tab" data-bs-target="#forecast" type="button" role="tab" aria-controls="forecast" aria-selected="false">Forecast</button>
                     </li>
                   </ul>
-                  <h3 className='h5 fw-normal border-bottom border-dark pb-1'></h3>
                   <div className="d-flex">
                     <button className="btn btn-sm btn-warning text-light" onClick={switchTempUnit} >Switch to {temperatureUnit === 'celsius' ? 'Fahrenheit' : 'Celsius'}</button>
                   </div>
