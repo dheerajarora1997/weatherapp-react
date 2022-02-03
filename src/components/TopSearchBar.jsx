@@ -1,15 +1,14 @@
 import React from 'react';
-
 import Button from './Button';
-import SearchInput from './SearchInput';
-import MaterialIcons from './MaterialIcons';
 
-export default function TopSearchBar(props) {
-  return (
-    <>
-      <form onSubmit={props.onSearch} className="w-100">
-        <SearchInput styleClass='rounded-pill border mb-3 text-capitalize' htmlType='text' htmlPlaceholder='Search' searchRef={props.searchRef} location={props.location} />
+export default React.forwardRef(
+  function TopSearchBar(props, ref) {
+    return (
+
+      <form onSubmit={props.onSubmit} className="w-100">
+        <input className='form-control rounded-pill border mb-3 text-capitalize' type='text' placeholder='Search' aria-label="default input example" ref={ref} defaultValue={props.location} />
       </form>
-    </>
-  );
-}
+
+    );
+  }
+)

@@ -46,6 +46,7 @@ export default function Landing() {
   }, [location])
 
   const searchRef = useRef(null);
+
   const onSearch = (event) => {
     event.preventDefault();
     let searchValue = searchRef.current.value;
@@ -61,7 +62,7 @@ export default function Landing() {
             <div className="col-sm-4">
               <div className="bg-white p-3 d-flex flex-column app-left-block">
                 <div className="d-flex align-items-center">
-                  <TopSearchBar location={location} onSearch={onSearch} searchRef={searchRef} />
+                  <TopSearchBar location={location} onSubmit={onSearch} ref={searchRef} />
                 </div>
                 <img src={weatherResponse?.current?.condition?.icon} alt="logo" className="img-fluid col-4" />
                 <Heading level="2" content={`${temperatureUnit === 'celsius' ? weatherResponse?.current?.temp_c : weatherResponse?.current?.temp_f}`} styleClass='display-3 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°F'}`} />

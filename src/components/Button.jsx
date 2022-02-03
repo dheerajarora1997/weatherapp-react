@@ -1,10 +1,10 @@
 import React from 'react';
 
 export default function Button(props) {
-  const {buttonType, styleClass, content, onSearch} = props;
+  const {buttonType, styleClass, children, onSearch} = props;
   return (
     <button type={buttonType} className={`btn ${styleClass}`} onClick={onSearch}>
-      {content}
+      {children}
     </button>
   );
 }
