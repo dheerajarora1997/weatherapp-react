@@ -2982,10 +2982,6 @@ export default function Home() {
     }
   }
   console.log(weatherResponse);
-  // let localTime = weatherResponse.location.localtime;
-  // let onlyDate = localTime.slice(0, 11);
-  // let today = localTime.getDay();
-  // console.log(localTime)
 
   return (
     <>
@@ -3022,7 +3018,7 @@ export default function Home() {
                     <ul className="list-group list-group-flush">
                       {element.hour.map((item, number) => {
                         return (
-                          <li className="list-group-item" key={number}>{item.time} - {item.temp_c} / {item.temp_f}</li>
+                          <li className={`list-group-item ${number % 2 ? 'd-none': ''}`} key={number}>{item.time} - {item.temp_c} / {item.temp_f}</li>
                         )
                       })}
 

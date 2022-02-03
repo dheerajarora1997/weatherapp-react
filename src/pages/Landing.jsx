@@ -53,7 +53,6 @@ export default function Landing() {
     setLocation(searchValue);
   }
 
-
   return (
     <>
       <div className="container pt-2">
@@ -94,7 +93,7 @@ export default function Landing() {
                   </ul>
                   <h3 className='h5 fw-normal border-bottom border-dark pb-1'></h3>
                   <div className="d-flex">
-                    <button className="btn btn-sm btn-warning" onClick={switchTempUnit} >Switch to {temperatureUnit === 'celsius' ? 'Fahrenheit' : 'Celsius'}</button>
+                    <button className="btn btn-sm btn-warning text-light" onClick={switchTempUnit} >Switch to {temperatureUnit === 'celsius' ? 'Fahrenheit' : 'Celsius'}</button>
                   </div>
                 </div>
                 <div className="d-flex justify-content-between">
@@ -129,7 +128,7 @@ export default function Landing() {
                           <div className="col-12">
                             <div className="d-flex align-items-center">
                               <span className="text-muted">Today Forecast</span>
-                              <button className="btn btn-sm btn-warning ms-auto rounded-pill" onClick={toggleForecast}>Switch Time</button>
+                              <button className="btn btn-sm btn-warning text-light ms-auto rounded-pill" onClick={toggleForecast}>Switch Time</button>
                             </div>
                             <hr />
                           </div>
