@@ -7,9 +7,9 @@ import MaterialIcons from './MaterialIcons';
 export default function TopSearchBar(props) {
   return (
     <>
-      <SearchInput styleClass='rounded-pill border-light me-2' htmlType='text' htmlPlaceholder='Search' />
-      <Button styleClass='btn-warning text-white rounded-pill d-flex justify-content-center p-1' buttonType='button' content={<MaterialIcons materialIcon='search' />}>
-      </Button>
+      <form onSubmit={props.onSearch} className="w-100">
+        <SearchInput styleClass='rounded-pill border mb-3 text-capitalize' htmlType='text' htmlPlaceholder='Search' searchRef={props.searchRef} location={props.location} />
+      </form>
     </>
   );
 }
