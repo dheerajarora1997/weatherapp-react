@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import Heading from '../components/Heading';
 import TopSearchBar from '../components/TopSearchBar';
+import Loader from '../components/Loader'
 
 
 export default function Landing() {
@@ -32,13 +33,17 @@ export default function Landing() {
 
   const [location, setLocation] = useState('India');
 
+  const [loading, setLoading] = useState(false)
+
   const getWeather = async () => {
+    setLoading(true);
     const url = `http://api.weatherapi.com/v1/forecast.json?key=ecade1ec1b7047d9994165323223101&q=${location}&days=3&aqi=yes`;
 
     let data = await fetch(url);
     let parseData = await data.json();
     setWeatherResponse(parseData);
 
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -55,6 +60,9 @@ export default function Landing() {
 
   return (
     <>
+      {loading && <div className="loader">
+        <Loader></Loader>
+      </div>}
       <div className="container pt-2">
         <main className="Shadow-lg bg-light rounded-3 overflow-hidden">
           <div className="row">

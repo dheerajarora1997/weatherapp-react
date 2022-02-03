@@ -2,24 +2,39 @@
   min-height: calc(100vh - 23px);
 }
 
-.nav-tabs{
+.nav-tabs {
   border: none;
 }
-.nav-tabs .nav-link{
+
+.nav-tabs .nav-link {
   background: none;
   color: #999;
   border: none;
 }
+
 .nav-tabs .nav-link:focus,
 .nav-tabs .nav-link:hover {
   background: none;
   border: none;
   color: #999;
 }
+
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
   color: #000;
   border: none;
   background: none;
   border-bottom: 2px solid #000;
+}
+
+.loader {
+  color: #fff;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, .3);
 }
