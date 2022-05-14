@@ -10,8 +10,6 @@ export default function Landing() {
   const [weatherResponse, setWeatherResponse] = useState({});
   const [temperatureUnit, setTemperatureUnit] = useState('celsius');
 
-  const [data, setData] = useState('')
-
   const switchTempUnit = () => {
     if (temperatureUnit === 'celsius') {
       setTemperatureUnit('Fahrenheit')
@@ -47,15 +45,18 @@ export default function Landing() {
       window.alert("The searched location doesn't exist. The default location has been reset to india ");
       setLocation('india');
     }
+
     setWeatherResponse(parseData);
-    setData(data)
     setLoading(false);
+    console.log(JSON.stringify(parseData));
 
     // New url for update response
-    const newUrl = `https://www.7timer.info/bin/astro.php?lon=113.2&lat=23.1&ac=0&unit=metric&output=json&tzshift=0`;
+    const newUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&APPID=269ae75ef90dca5bd7e65107db737320`;
+
     let newData = await fetch(newUrl);
     let parseNewData = await newData.json();
-    console.log(parseNewData);
+    console.log(JSON.stringify(parseNewData));
+    // setWeatherResponse(parseNewData);
 
   }
 
