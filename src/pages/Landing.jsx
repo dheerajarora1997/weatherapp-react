@@ -10,6 +10,8 @@ export default function Landing() {
   const [weatherResponse, setWeatherResponse] = useState({});
   const [temperatureUnit, setTemperatureUnit] = useState('celsius');
 
+  const [data, setData] = useState('')
+
   const switchTempUnit = () => {
     if (temperatureUnit === 'celsius') {
       setTemperatureUnit('Fahrenheit')
@@ -37,12 +39,16 @@ export default function Landing() {
 
   const getWeather = async () => {
     setLoading(true);
+    const newUrl = `https://www.7timer.info/bin/astro.php?lon=113.2&lat=23.1&ac=0&unit=metric&output=json&tzshift=0`
+    console.log(newUrl);
     const url = `http://api.weatherapi.com/v1/forecast.json?key=ecade1ec1b7047d9994165323223101&q=${location}&days=3&aqi=yes`;
 
     let data = await fetch(url);
-    let parseData = await data.json();
-    setWeatherResponse(parseData);
 
+    let parseData = await data.json();
+
+    setWeatherResponse(parseData);
+    setData(data);
     setLoading(false);
   }
 
@@ -55,7 +61,6 @@ export default function Landing() {
   const onSearch = (event) => {
     event.preventDefault();
     let searchValue = searchRef.current.value;
-    setLocation(searchValue);
   }
 
   return (
