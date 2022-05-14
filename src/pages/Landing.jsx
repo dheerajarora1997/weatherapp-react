@@ -42,7 +42,6 @@ export default function Landing() {
     const url = `http://api.weatherapi.com/v1/forecast.json?key=ecade1ec1b7047d9994165323223101&q=${location}&days=3&aqi=yes`;
 
     let data = await fetch(url);
-
     let parseData = await data.json();
     if (parseData.error) {
       window.alert("The searched location doesn't exist. The default location has been reset to india ");
@@ -50,8 +49,14 @@ export default function Landing() {
     }
     setWeatherResponse(parseData);
     setData(data)
-
     setLoading(false);
+
+    // New url for update response
+    const newUrl = `https://www.7timer.info/bin/astro.php?lon=113.2&lat=23.1&ac=0&unit=metric&output=json&tzshift=0`;
+    let newData = await fetch(newUrl);
+    let parseNewData = await newData.json();
+    console.log(parseNewData);
+
   }
 
   useEffect(() => {
