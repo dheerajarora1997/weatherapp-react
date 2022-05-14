@@ -5,6 +5,7 @@ import TopSearchBar from '../components/TopSearchBar';
 import Loader from '../components/Loader'
 
 
+alert();
 export default function Landing() {
 
   const [weatherResponse, setWeatherResponse] = useState({});
@@ -36,7 +37,16 @@ export default function Landing() {
   const [loading, setLoading] = useState(false)
 
   const getWeather = async () => {
+    // New url for update response
+    const newUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&APPID=269ae75ef90dca5bd7e65107db737320`;
+
+    let newData = await fetch(newUrl);
+    let parseNewData = await newData.json();
+    console.log(JSON.stringify(parseNewData));
+    // setWeatherResponse(parseNewData);
+
     setLoading(true);
+
     const url = `http://api.weatherapi.com/v1/forecast.json?key=ecade1ec1b7047d9994165323223101&q=${location}&days=3&aqi=yes`;
 
     let data = await fetch(url);
@@ -50,13 +60,6 @@ export default function Landing() {
     setLoading(false);
     console.log(JSON.stringify(parseData));
 
-    // New url for update response
-    const newUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&APPID=269ae75ef90dca5bd7e65107db737320`;
-
-    let newData = await fetch(newUrl);
-    let parseNewData = await newData.json();
-    console.log(JSON.stringify(parseNewData));
-    // setWeatherResponse(parseNewData);
 
   }
 
