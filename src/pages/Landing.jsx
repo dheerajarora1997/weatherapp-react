@@ -4,8 +4,6 @@ import Heading from '../components/Heading';
 import TopSearchBar from '../components/TopSearchBar';
 import Loader from '../components/Loader'
 
-
-alert();
 export default function Landing() {
 
   const [weatherResponse, setWeatherResponse] = useState({});
@@ -32,35 +30,31 @@ export default function Landing() {
 
   }
 
-  const [location, setLocation] = useState('India');
+  const [location, setLocation] = useState('New Delhi');
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const getWeather = async () => {
+    setLoading(true);
+
     // New url for update response
+    // https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid={API key}
     const newUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&APPID=269ae75ef90dca5bd7e65107db737320`;
 
     let newData = await fetch(newUrl);
     let parseNewData = await newData.json();
-    console.log(JSON.stringify(parseNewData));
-    // setWeatherResponse(parseNewData);
+    setWeatherResponse(parseNewData);
 
-    setLoading(true);
-
-    const url = `http://api.weatherapi.com/v1/forecast.json?key=ecade1ec1b7047d9994165323223101&q=${location}&days=3&aqi=yes`;
-
-    let data = await fetch(url);
-    let parseData = await data.json();
-    if (parseData.error) {
-      window.alert("The searched location doesn't exist. The default location has been reset to india ");
-      setLocation('india');
-    }
-
-    setWeatherResponse(parseData);
+    console.log(parseNewData)
     setLoading(false);
-    console.log(JSON.stringify(parseData));
 
+    console.log(parseNewData?.sys?.sunrise);
 
+    let myDate = parseNewData?.sys?.sunrise;
+
+    var date = new Date(myDate);
+    console.log(date);
+    console.log(date.getHours() + ':' + date.getMinutes());
   }
 
   useEffect(() => {
@@ -88,19 +82,18 @@ export default function Landing() {
                 <div className="d-flex align-items-center">
                   <TopSearchBar location={location} onSubmit={onSearch} ref={searchRef} />
                 </div>
-                <img src={weatherResponse?.current?.condition?.icon} alt="logo" className="img-fluid col-4" />
-                <Heading level="2" content={`${temperatureUnit === 'celsius' ? weatherResponse?.current?.temp_c : weatherResponse?.current?.temp_f}`} styleClass='display-3 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°F'}`} />
-                <Heading level="2" content={weatherResponse?.location?.name} styleClass='h4 text-center fw-light d-flex align-items-center'></Heading>
-                <p>{weatherResponse?.location?.country}</p>
-                <p className="">{weatherResponse?.location?.localtime}</p>
-                <p className="mb-0"><span className="text-muted">Time Zone</span> - {weatherResponse?.location?.tz_id}</p>
+                <img src={weatherResponse?.weather?.icon} alt="logo" className="img-fluid col-4" />
+                <Heading level="2" content={`${temperatureUnit === 'celsius' ? weatherResponse?.main?.temp : Math.ceil(weatherResponse?.main?.temp * 1.8)}`} styleClass='display-3 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°F'}`} />
+                <Heading level="2" content={weatherResponse?.name} styleClass='h4 text-center fw-light d-flex align-items-center'></Heading>
+                <p>{weatherResponse?.sys?.country}</p>
+                <p className="">{weatherResponse?.timezone}</p>
+                {/* <p className="mb-0"><span className="text-muted">Time Zone</span> - {weatherResponse?.location?.tz_id}</p> */}
                 <hr />
-                <p>{weatherResponse?.current?.condition?.text}</p>
-                <p className={`${temperatureUnit === 'celsius' ? '' : 'd-none'}`}>{weatherResponse?.forecast?.forecastday?.[0]?.day?.maxtemp_c} / {weatherResponse?.forecast?.forecastday?.[0]?.day?.mintemp_c} °C</p>
-                <p className={`${temperatureUnit === 'celsius' ? 'd-none' : ''}`}>{weatherResponse?.forecast?.forecastday?.[0]?.day?.maxtemp_f} / {weatherResponse?.forecast?.forecastday?.[0]?.day?.mintemp_f} °F</p>
-                <p>Humidity - {weatherResponse?.current?.humidity}%</p>
+                <p className={`${temperatureUnit === 'celsius' ? '' : 'd-none'}`}>{Math.ceil(weatherResponse?.main?.temp_max + 5)} / {Math.ceil(weatherResponse?.main?.temp_min - 5)} °C</p>
+                <p>visibility - {weatherResponse?.visibility}</p>
+                <p>Humidity - {weatherResponse?.main?.humidity}%</p>
                 <div className="progress" style={{ height: "4px" }}>
-                  <div className={`progress-bar bg-${weatherResponse?.current?.humidity > 60 ? 'danger' : 'warning'}`} role="progressbar" style={{ width: `${weatherResponse?.current?.humidity}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div className={`progress-bar bg-warning`} role="progressbar" style={{ width: `${weatherResponse?.main?.humidity}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <p className="text-muted mt-2 mb-0">Developer : <a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
               </div>
@@ -127,25 +120,27 @@ export default function Landing() {
                         <div className="row mt-2">
                           <div className="col-3">
                             <div className="bg-white p-4 shadow rounded-3 mb-3 text-center">
-                              <span className="text-muted">{weatherResponse?.forecast?.forecastday?.[0].astro.sunrise}</span>
+                              {/* var date = new Date(timestamp);
+                            console.log(date.getTime()) */}
+                              <span className="text-muted">{weatherResponse?.sys?.sunrise}</span>
                               <h3 className="fw-light h6 mb-0 mt-1">Sun Rise</h3>
                             </div>
                           </div>
                           <div className="col-3">
                             <div className="bg-white p-4 shadow rounded-3 mb-3 text-center">
-                              <span className="text-muted">{weatherResponse?.forecast?.forecastday?.[0].astro.sunset}</span>
+                              <span className="text-muted">{weatherResponse?.sys?.sunset}</span>
                               <h3 className="fw-light h6 mb-0 mt-1">Sun Set</h3>
                             </div>
                           </div>
                           <div className="col-3">
                             <div className="bg-white p-4 shadow rounded-3 mb-3 text-center">
-                              <span className="text-muted">{weatherResponse?.current?.wind_kph} k/h</span>
+                              <span className="text-muted">{weatherResponse?.wind?.speed} k/h</span>
                               <h3 className="fw-light h6 mb-0 mt-1">Wind Speed</h3>
                             </div>
                           </div>
                           <div className="col-3">
                             <div className="bg-white p-4 shadow rounded-3 mb-3 text-center">
-                              <span className="text-muted">{weatherResponse?.current?.wind_degree}°</span>
+                              <span className="text-muted">{weatherResponse?.wind?.deg}°</span>
                               <h3 className="fw-light h6 mb-0 mt-1">Wind Degree</h3>
                             </div>
                           </div>
