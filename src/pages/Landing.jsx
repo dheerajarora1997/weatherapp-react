@@ -18,8 +18,6 @@ export default function Landing() {
     }
   }
 
-  const [forecast, setForecast] = useState('even');
-
   const [location, setLocation] = useState('New Delhi');
   const [loading, setLoading] = useState(false);
   const [currentTemp, setCurrentTemp] = useState();
@@ -29,7 +27,6 @@ export default function Landing() {
     setLoading(true);
 
     // New url for update response
-    // const newUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&APPID=269ae75ef90dca5bd7e65107db737320`;
     const newUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&APPID=269ae75ef90dca5bd7e65107db737320`;
 
     let newData = await fetch(newUrl);
@@ -44,7 +41,6 @@ export default function Landing() {
   }, [location])
 
   useEffect(() => {
-    console.log('stage update', weatherResponse);
     setCurrentTemp(weatherResponse?.list?.[0]?.main?.temp);
   }, [weatherResponse])
 
@@ -85,19 +81,36 @@ export default function Landing() {
                   <Heading level="2" content={`${temperatureUnit === 'celsius' ? currentTemp : Math.ceil(currentTemp * 1.8)}`} styleClass='display-3 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°F'}`} />
                   <h2>{weatherResponse.city.name}</h2>
                   <p>{weatherResponse.city.country}</p>
-                  <p className="">{weatherResponse.city.timezone}</p>
-                  <p className="">{weatherResponse.list[0].weather[0].main}</p>
+                  <p className="d-flex justify-content-between">
+                    <small className="text-muted">Time Zone</small>
+                    <span>{weatherResponse.city.timezone}</span>
+                  </p>
+                  <p className="d-flex justify-content-between">
+                    <small className="text-muted">Weather Condition</small>
+                    <span>{weatherResponse.list[0].weather[0].main}</span>
+                  </p>
+                  <p className="d-flex justify-content-between">
+                    <small className="text-muted">Population</small>
+                    <span>{weatherResponse.city.population}</span>
+                  </p>
                   {/* <p className="mb-0"><span className="text-muted">Time Zone</span> - {weatherResponse.location.tz_id}</p> */}
                   <hr className="my-2" />
-                  <p>
-                    {`${temperatureUnit === 'celsius' ? Math.ceil(weatherResponse.list[0].main.temp_max) + '° / ' + Math.floor(weatherResponse.list[0].main.temp_min) + '° ' : (Math.ceil(weatherResponse.list[0].main.temp_max)) * 1.8 + ' / ' + (Math.floor(weatherResponse.list[0].main.temp_min)) * 1.8 + '° '}`}
+                  <p className="d-flex justify-content-between">
+                    <small className="text-muted">Max / Min</small>
+                    {`${temperatureUnit === 'celsius' ? Math.ceil(weatherResponse.list[0].main.temp_max) + '° / ' + Math.floor(weatherResponse.list[0].main.temp_min) + '° ' : (Math.ceil(weatherResponse.list[0].main.temp_max * 1.8)) + ' / ' + (Math.floor(weatherResponse.list[0].main.temp_min * 1.8)) + '° '}`}
                   </p>
-                  <p>visibility - {weatherResponse.list[0].visibility}</p>
-                  <p>Humidity - {weatherResponse.list[0].main.humidity}%</p>
-                  <div className="progress" style={{ height: "4px" }}>
+                  <p className="d-flex justify-content-between">
+                    <small className="text-muted">visibility</small>
+                    {(weatherResponse.list[0].visibility * 100 / 10000) + '%'}
+                  </p>
+                  <p className="d-flex justify-content-between">
+                    <small className="text-muted">Humidity</small>
+                    {weatherResponse.list[0].main.humidity}%
+                  </p>
+                  <div className="progress mb-3" style={{ height: "4px" }}>
                     <div className={`progress-bar bg-warning`} role="progressbar" style={{ width: `${weatherResponse.list[0].main.humidity}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-                  <p className="text-muted mt-2 mb-0">Developer : <a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
+                  <p className="py-1 bg-warning bg-opacity-10 text-warning mt-4 mb-0 text-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
                 </>) : null}
               </div>
             </div>
@@ -122,25 +135,25 @@ export default function Landing() {
                       <div className="tab-content" id="myTabContent">
                         <div className="tab-pane fade show active" id="today" role="tabpanel" aria-labelledby="today-tab">
                           <div className="row mt-2">
-                            <div className="col-3">
+                            <div className="col-12 col-sm-6 col-md-3">
                               <div className="bg-white p-4 shadow rounded-3 mb-3 text-center">
                                 <span className="text-muted">{riseHours < 10 ? `0${riseHours}` : riseHours}:{riseMinutes < 10 ? `0${riseMinutes}` : riseMinutes}</span>
                                 <h3 className="fw-light h6 mb-0 mt-1">Sun Rise</h3>
                               </div>
                             </div>
-                            <div className="col-3">
+                            <div className="col-12 col-sm-6 col-md-3">
                               <div className="bg-white p-4 shadow rounded-3 mb-3 text-center">
                                 <span className="text-muted">{sunSetHours < 10 ? `0${sunSetHours}` : sunSetHours}:{sunSetMinutes < 10 ? `0${sunSetMinutes}` : sunSetMinutes}</span>
                                 <h3 className="fw-light h6 mb-0 mt-1">Sun Set</h3>
                               </div>
                             </div>
-                            <div className="col-3">
+                            <div className="col-12 col-sm-6 col-md-3">
                               <div className="bg-white p-4 shadow rounded-3 mb-3 text-center">
                                 <span className="text-muted">{weatherResponse.list[0].wind.speed} k/h</span>
                                 <h3 className="fw-light h6 mb-0 mt-1">Wind Speed</h3>
                               </div>
                             </div>
-                            <div className="col-3">
+                            <div className="col-12 col-sm-6 col-md-3">
                               <div className="bg-white p-4 shadow rounded-3 mb-3 text-center">
                                 <span className="text-muted">{weatherResponse.list[0].wind.deg}°</span>
                                 <h3 className="fw-light h6 mb-0 mt-1">Wind Degree</h3>
@@ -153,25 +166,21 @@ export default function Landing() {
                             </div>
                             {weatherResponse.list.slice(0, 9).map((element, index) => {
                               return (
-                                <div className="col-4 pt-3" key={index}>
+                                <div className="col-12 col-sm-6 col-md-4 pt-3" key={index}>
                                   <div className="bg-white p-2 shadow rounded-3 mb-3">
-                                    <div className="row align-items-center">
-                                      <div className="col-sm-12">
-                                        <div className="d-flex justify-content-between">
-                                          <small className="text-muted">Temp.</small>
-                                          {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
-                                        </div>
-                                        <div className="d-flex justify-content-between">
-                                          <small className="text-muted">Wind Speed</small>
-                                          <span>
-                                            {element.wind.speed} km/h
-                                          </span>
-                                        </div>
-                                        <small className="d-block text-muted badge bg-warning bg-opacity-50 mt-2">
-                                          {element.dt_txt.slice(0, 16)}
-                                        </small>
-                                      </div>
+                                    <div className="d-flex justify-content-between">
+                                      <small className="text-muted">Temp.</small>
+                                      {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
                                     </div>
+                                    <div className="d-flex justify-content-between">
+                                      <small className="text-muted">Wind Speed</small>
+                                      <span>
+                                        {element.wind.speed} km/h
+                                      </span>
+                                    </div>
+                                    <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
+                                      {element.dt_txt.slice(0, 16)}
+                                    </small>
                                   </div>
                                 </div>
                               )
@@ -182,25 +191,21 @@ export default function Landing() {
                           <div className="row">
                             {weatherResponse.list.slice(9, 21).map((element, index) => {
                               return (
-                                <div className="col-4 pt-3" key={index}>
+                                <div className="col-12 col-sm-6 col-md-4 pt-3" key={index}>
                                   <div className="bg-white p-2 shadow rounded-3 mb-3">
-                                    <div className="row align-items-center">
-                                      <div className="col-sm-12">
-                                        <div className="d-flex justify-content-between">
-                                          <small className="text-muted">Temp.</small>
-                                          {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max)) * 1.8 + ' / ' + (Math.floor(element.main.temp_min)) * 1.8 + '° '}`}
-                                        </div>
-                                        <div className="d-flex justify-content-between">
-                                          <small className="text-muted">Wind Speed</small>
-                                          <span>
-                                            {element.wind.speed} km/h
-                                          </span>
-                                        </div>
-                                        <small className="d-block text-muted badge bg-warning bg-opacity-50 mt-2">
-                                          {element.dt_txt.slice(0, 16)}
-                                        </small>
-                                      </div>
+                                    <div className="d-flex justify-content-between">
+                                      <small className="text-muted">Temp.</small>
+                                      {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max)) * 1.8 + ' / ' + (Math.floor(element.main.temp_min)) * 1.8 + '° '}`}
                                     </div>
+                                    <div className="d-flex justify-content-between">
+                                      <small className="text-muted">Wind Speed</small>
+                                      <span>
+                                        {element.wind.speed} km/h
+                                      </span>
+                                    </div>
+                                    <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
+                                      {element.dt_txt.slice(0, 16)}
+                                    </small>
                                   </div>
                                 </div>
                               )

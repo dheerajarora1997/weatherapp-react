@@ -1,5 +1,7 @@
-.app-left-block {
-  min-height: calc(100vh - 23px);
+@media only screen and (min-width: 767px) {
+  .app-left-block {
+    min-height: calc(100vh - 23px);
+  }
 }
 
 .nav-tabs {
