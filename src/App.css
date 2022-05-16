@@ -28,6 +28,7 @@
 }
 
 .loader {
+  position: fixed;
   color: #fff;
   content: '';
   position: absolute;
