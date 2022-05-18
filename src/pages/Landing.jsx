@@ -35,6 +35,9 @@ export default function Landing() {
     if (parseNewData.cod == 404) {
       setDataAvailable(false);
     }
+    else if (parseNewData.cod == 400){
+      setDataAvailable(false);
+    }
     else {
       setWeatherResponse(parseNewData);
       setDataAvailable(true);
@@ -69,18 +72,14 @@ export default function Landing() {
   sunSetHours = sunSetTime.getHours();
   sunSetMinutes = sunSetTime.getMinutes();
 
-  const reload = () => {
-    setLocation('Delhi');
-  }
-
   return (
     <>
       {loading && <div className="loader">
         <Loader></Loader>
       </div>}
-      <div className="d-flex justify-content-center align-items-center vh-100">
-        <div className="container pt-2">
-          <main className="Shadow-lg bg-light rounded-3 overflow-hidden">
+      <div className={`d-flex justify-content-center align-items-center ${!dataAvailable ? 'vh-100' :''}`}>
+        <div className="container py-2 px-md-auto px-4">
+          <main className={`Shadow-lg rounded-3 overflow-hidden ${!dataAvailable ? 'bg-white' :'bg-light'}`}>
             <div className="row">
               {weatherResponse.cod && dataAvailable ? (<>
                 <div className="col-sm-4">
@@ -90,37 +89,37 @@ export default function Landing() {
                     </div>
                     <Heading level="2" content={`${temperatureUnit === 'celsius' ? currentTemp : Math.ceil(currentTemp * 1.8)}`} styleClass='display-3 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°F'}`} />
                     <h2>{weatherResponse.city.name}</h2>
-                    <p>{weatherResponse.city.country}</p>
-                    <p className="d-flex justify-content-between">
+                    <p className="mb-1 mb-md-3">{weatherResponse.city.country}</p>
+                    <p className="d-flex justify-content-between mb-1 mb-md-3">
                       <small className="text-muted">Time Zone</small>
                       <span>{weatherResponse.city.timezone}</span>
                     </p>
-                    <p className="d-flex justify-content-between">
+                    <p className="d-flex justify-content-between mb-1 mb-md-3">
                       <small className="text-muted">Weather Condition</small>
                       <span>{weatherResponse.list[0].weather[0].main}</span>
                     </p>
-                    <p className="d-flex justify-content-between">
+                    <p className="d-flex justify-content-between mb-1 mb-md-3">
                       <small className="text-muted">Population</small>
                       <span>{weatherResponse.city.population}</span>
                     </p>
                     {/* <p className="mb-0"><span className="text-muted">Time Zone</span> - {weatherResponse.location.tz_id}</p> */}
                     <hr className="my-2" />
-                    <p className="d-flex justify-content-between">
+                    <p className="d-flex justify-content-between mb-1 mb-md-3">
                       <small className="text-muted">Max / Min</small>
                       {`${temperatureUnit === 'celsius' ? Math.ceil(weatherResponse.list[0].main.temp_max) + '° / ' + Math.floor(weatherResponse.list[0].main.temp_min) + '° ' : (Math.ceil(weatherResponse.list[0].main.temp_max * 1.8)) + ' / ' + (Math.floor(weatherResponse.list[0].main.temp_min * 1.8)) + '° '}`}
                     </p>
-                    <p className="d-flex justify-content-between">
+                    <p className="d-flex justify-content-between mb-1 mb-md-3">
                       <small className="text-muted">visibility</small>
                       {(weatherResponse.list[0].visibility * 100 / 10000) + '%'}
                     </p>
-                    <p className="d-flex justify-content-between">
+                    <p className="d-flex justify-content-between mb-1 mb-md-3">
                       <small className="text-muted">Humidity</small>
                       {weatherResponse.list[0].main.humidity}%
                     </p>
                     <div className="progress mb-3" style={{ height: "4px" }}>
                       <div className={`progress-bar bg-warning`} role="progressbar" style={{ width: `${weatherResponse.list[0].main.humidity}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <p className="py-1 bg-warning bg-opacity-10 text-warning mt-4 mb-0 text-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
+                    <p className="d-none d-sm-block py-1 bg-warning bg-opacity-10 text-warning mt-4 mb-0 text-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
                   </div>
                 </div>
                 <div className="col-sm-8">
@@ -224,20 +223,19 @@ export default function Landing() {
                       </div>
                     </div>
                   </div>
+                  <p className="d-sm-none d-block py-1 bg-warning bg-opacity-10 text-warning mb-0 text-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
                 </div>
-              </>) : null}
-              {
-                !dataAvailable ?
-                  <>
-                    <div className="col-4 text-center mx-auto p-5">
-                      <img src={NoData} alt="NO data" className="img-fluid mb-2" />
-                    </div>
-                    <div className="col-10 text-center mb-5 mx-auto">
-                      <p className="text-muted">Searched <strong className="badge bg-white text-warning"> {location} </strong> city not available. click the below button to make it Delhi</p>
-                      <button className="btn btn-outline-warning bg-white d-inline-block" onClick={reload}>Reset to Delhi</button>
-                    </div>
-                  </> : null
-              }
+              </>) : <>
+                <div className="col-12 col-sm-4 text-center mx-auto">
+                  <img src={NoData} alt="NO data" className="img-fluid mb-2 mt-5 px-5" />
+                </div>
+                <div className="col-11 mx-auto">
+                  <p className="text-muted text-center mb-2">Kindly search a Valid city.</p>
+                </div>
+                <div className="col-10 col-sm-4 mx-auto">
+                  <TopSearchBar location={location} onSubmit={onSearch} ref={searchRef} />
+                </div>
+              </>}
             </div>
           </main>
         </div>

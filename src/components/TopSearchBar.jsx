@@ -6,8 +6,8 @@ export default React.forwardRef(
     return (
 
       <form onSubmit={props.onSubmit} className="w-100">
-        <label className="small text-muted mb-1" htmlFor="">Search for City</label>
-        <input className='form-control rounded-pill border mb-3 text-capitalize' type='text' placeholder='Search' aria-label="default input example" ref={ref} defaultValue={props.location} />
+        <label className="small text-muted mb-1 text-left" htmlFor="">Search for City</label>
+        <input className='form-control rounded-pill border mb-sm-4 mb-5 text-capitalize' type='text' placeholder='Search' aria-label="default input example" ref={ref} defaultValue={props.location} />
       </form>
 
     );
