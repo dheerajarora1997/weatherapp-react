@@ -4,6 +4,8 @@ import Heading from '../components/Heading';
 import TopSearchBar from '../components/TopSearchBar';
 import Loader from '../components/Loader';
 
+import NoData from '../NoData.png';
+
 export default function Landing() {
 
   const [weatherResponse, setWeatherResponse] = useState({});
@@ -22,15 +24,18 @@ export default function Landing() {
   const [loading, setLoading] = useState(false);
   const [currentTemp, setCurrentTemp] = useState();
 
-  const getWeather = async () => {
 
+  const getWeather = async () => {
     setLoading(true);
 
     // New url for update response
     const newUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&APPID=269ae75ef90dca5bd7e65107db737320`;
-
     let newData = await fetch(newUrl);
     let parseNewData = await newData.json();
+    if (parseNewData.cod == 404) {
+      window.alert("The searched city doesn't exist.");
+      reload();
+    }
     setWeatherResponse(parseNewData);
     setLoading(false);
   }
@@ -62,6 +67,9 @@ export default function Landing() {
   sunSetHours = sunSetTime.getHours();
   sunSetMinutes = sunSetTime.getMinutes();
 
+  const reload = () => {
+    window.location.reload(false);
+  }
 
   return (
     <>
@@ -71,13 +79,12 @@ export default function Landing() {
       <div className="container pt-2">
         <main className="Shadow-lg bg-light rounded-3 overflow-hidden">
           <div className="row">
-            <div className="col-sm-4">
-              <div className="bg-white p-3 d-flex flex-column app-left-block">
-                <div className="d-flex align-items-center">
-                  <TopSearchBar location={location} onSubmit={onSearch} ref={searchRef} />
-                </div>
-                {/* <img src={weatherResponse?.list['0'].main.weather['0'].icon} alt="logo" className="img-fluid col-4" /> */}
-                {weatherResponse.cod ? (<>
+            {weatherResponse.cod ? (<>
+              <div className="col-sm-4">
+                <div className="bg-white p-3 d-flex flex-column app-left-block">
+                  <div className="d-flex align-items-center">
+                    <TopSearchBar location={location} onSubmit={onSearch} ref={searchRef} />
+                  </div>
                   <Heading level="2" content={`${temperatureUnit === 'celsius' ? currentTemp : Math.ceil(currentTemp * 1.8)}`} styleClass='display-3 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°F'}`} />
                   <h2>{weatherResponse.city.name}</h2>
                   <p>{weatherResponse.city.country}</p>
@@ -111,12 +118,10 @@ export default function Landing() {
                     <div className={`progress-bar bg-warning`} role="progressbar" style={{ width: `${weatherResponse.list[0].main.humidity}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                   <p className="py-1 bg-warning bg-opacity-10 text-warning mt-4 mb-0 text-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
-                </>) : null}
+                </div>
               </div>
-            </div>
-            <div className="col-sm-8">
-              <div className="p-4">
-                {weatherResponse.cod ? (<>
+              <div className="col-sm-8">
+                <div className="p-4">
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <ul className="nav nav-tabs" id="myTab" role="tablist">
                       <li className="nav-item" role="presentation">
@@ -215,9 +220,15 @@ export default function Landing() {
                       </div>
                     </div>
                   </div>
-                </>) : null}
+                </div>
               </div>
-            </div>
+            </>) : <>
+              <div className="col-4 text-center mx-auto p-5">
+                <img src={NoData} alt="NO data" className="img-fluid mb-5" />
+                <p className="text-muted">No data Found</p>
+                <button className="btn btn-outline-warning bg-white d-inline-block" onClick={reload}>Reload</button>
+              </div>
+            </>}
           </div>
         </main>
       </div>
