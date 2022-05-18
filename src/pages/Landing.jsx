@@ -32,15 +32,12 @@ export default function Landing() {
     const newUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&APPID=269ae75ef90dca5bd7e65107db737320`;
     let newData = await fetch(newUrl);
     let parseNewData = await newData.json();
-    if (parseNewData.cod == 404) {
-      setDataAvailable(false);
-    }
-    else if (parseNewData.cod == 400){
-      setDataAvailable(false);
-    }
-    else {
+    if (parseNewData.cod == 200) {
       setWeatherResponse(parseNewData);
       setDataAvailable(true);
+    }
+    else {
+      setDataAvailable(false);
     }
     setLoading(false);
   }
@@ -79,7 +76,7 @@ export default function Landing() {
       </div>}
       <div className={`d-flex justify-content-center align-items-center ${!dataAvailable ? 'vh-100' :''}`}>
         <div className="container py-2 px-md-auto px-4">
-          <main className={`Shadow-lg rounded-3 overflow-hidden ${!dataAvailable ? 'bg-white' :'bg-light'}`}>
+          <main className={`Shadow-lg rounded-3 overflow-hidden bg-white`}>
             <div className="row">
               {weatherResponse.cod && dataAvailable ? (<>
                 <div className="col-sm-4">
@@ -90,29 +87,29 @@ export default function Landing() {
                     <Heading level="2" content={`${temperatureUnit === 'celsius' ? currentTemp : Math.ceil(currentTemp * 1.8)}`} styleClass='display-3 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°F'}`} />
                     <h2>{weatherResponse.city.name}</h2>
                     <p className="mb-1 mb-md-3">{weatherResponse.city.country}</p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-3">
+                    <p className="d-flex justify-content-between mb-1 mb-md-2">
                       <small className="text-muted">Time Zone</small>
                       <span>{weatherResponse.city.timezone}</span>
                     </p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-3">
+                    <p className="d-flex justify-content-between mb-1 mb-md-2">
                       <small className="text-muted">Weather Condition</small>
                       <span>{weatherResponse.list[0].weather[0].main}</span>
                     </p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-3">
+                    <p className="d-flex justify-content-between mb-1 mb-md-2">
                       <small className="text-muted">Population</small>
                       <span>{weatherResponse.city.population}</span>
                     </p>
                     {/* <p className="mb-0"><span className="text-muted">Time Zone</span> - {weatherResponse.location.tz_id}</p> */}
                     <hr className="my-2" />
-                    <p className="d-flex justify-content-between mb-1 mb-md-3">
+                    <p className="d-flex justify-content-between mb-1 mb-md-2">
                       <small className="text-muted">Max / Min</small>
                       {`${temperatureUnit === 'celsius' ? Math.ceil(weatherResponse.list[0].main.temp_max) + '° / ' + Math.floor(weatherResponse.list[0].main.temp_min) + '° ' : (Math.ceil(weatherResponse.list[0].main.temp_max * 1.8)) + ' / ' + (Math.floor(weatherResponse.list[0].main.temp_min * 1.8)) + '° '}`}
                     </p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-3">
+                    <p className="d-flex justify-content-between mb-1 mb-md-2">
                       <small className="text-muted">visibility</small>
                       {(weatherResponse.list[0].visibility * 100 / 10000) + '%'}
                     </p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-3">
+                    <p className="d-flex justify-content-between mb-1 mb-md-2">
                       <small className="text-muted">Humidity</small>
                       {weatherResponse.list[0].main.humidity}%
                     </p>
@@ -122,8 +119,8 @@ export default function Landing() {
                     <p className="d-none d-sm-block py-1 bg-warning bg-opacity-10 text-warning mt-4 mb-0 text-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
                   </div>
                 </div>
-                <div className="col-sm-8">
-                  <div className="p-4">
+                <div className="col-sm-8 bg-light">
+                  <div className="px-4 py-3">
                     <div className="d-flex justify-content-between align-items-center mb-3">
                       <ul className="nav nav-tabs" id="myTab" role="tablist">
                         <li className="nav-item" role="presentation">

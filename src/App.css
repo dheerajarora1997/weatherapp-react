@@ -1,6 +1,6 @@
 @media only screen and (min-width: 767px) {
   .app-left-block {
-    min-height: calc(100vh - 23px);
+    min-height: calc(100vh - 30px);
   }
 }
 
