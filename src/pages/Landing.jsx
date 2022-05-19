@@ -171,60 +171,89 @@ export default function Landing() {
                               </div>
                               <div className="col-12">
                                 <div className="d-flex align-items-center">
-                                  <span className="text-muted">Forecast</span>
+                                  <span className="text-muted">Today</span>
                                 </div>
                               </div>
-                              <p className="bg-danger">
-                                {weatherResponse.list.filter(function (el) {return el.dt_text == weatherResponse.list[0].dt_text}).map((element, index) => {
-                                  return <>{element.dt_txt}</>
-                                })}
-                              </p>
-                              {weatherResponse.list.slice(0, 9).map((element, index) => {
-                                return (
-                                  <div className="col-12 col-sm-6 col-md-4 pt-3" key={index}>
-                                    <div className="bg-white p-2 shadow rounded-3 mb-3">
-                                      <div className="d-flex justify-content-between">
-                                        <small className="text-muted">Temp.</small>
-                                        {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
+                              <div className="col-12">
+                                <div className="row">
+                                  {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[0].dt_txt).slice(0, 10) }).map((element, index) => {
+                                    return (
+                                      <div className="col-12 col-sm-6 col-md-4 pt-3" key={index}>
+                                        <div className="bg-white p-2 shadow rounded-3 mb-3">
+                                          <div className="d-flex justify-content-between">
+                                            <small className="text-muted">Temp.</small>
+                                            {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
+                                          </div>
+                                          <div className="d-flex justify-content-between">
+                                            <small className="text-muted">Wind Speed</small>
+                                            <span>
+                                              {element.wind.speed} km/h
+                                            </span>
+                                          </div>
+                                          <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
+                                            {element.dt_txt.slice(0, 16)}
+                                          </small>
+                                        </div>
                                       </div>
-                                      <div className="d-flex justify-content-between">
-                                        <small className="text-muted">Wind Speed</small>
-                                        <span>
-                                          {element.wind.speed} km/h
-                                        </span>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                              <div className="col-12">
+                              <div className="d-flex align-items-center">
+                                  <span className="text-muted">Tomorrow</span>
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="row">
+                                  {weatherResponse.list.slice(0, 7).filter(function (el) { return (el.dt_txt).slice(0, 10) != (weatherResponse.list[0].dt_txt).slice(0, 10) }).map((element, index) => {
+                                    return (
+                                      <div className="col-12 col-sm-6 col-md-4 pt-3" key={index}>
+                                        <div className="bg-white p-2 shadow rounded-3 mb-3">
+                                          <div className="d-flex justify-content-between">
+                                            <small className="text-muted">Temp.</small>
+                                            {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
+                                          </div>
+                                          <div className="d-flex justify-content-between">
+                                            <small className="text-muted">Wind Speed</small>
+                                            <span>
+                                              {element.wind.speed} km/h
+                                            </span>
+                                          </div>
+                                          <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
+                                            {element.dt_txt.slice(0, 16)}
+                                          </small>
+                                        </div>
                                       </div>
-                                      <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
-                                        {element.dt_txt.slice(0, 16)}
-                                      </small>
-                                    </div>
-                                  </div>
-                                )
-                              })}
+                                    )
+                                  })}
+                                </div>
+                              </div>
                             </div>
                           </div>
                           <div className="tab-pane fade" id="forecast" role="tabpanel" aria-labelledby="forecast-tab">
                             <div className="row">
-                              {weatherResponse.list.slice(9, 21).map((element, index) => {
-                                return (
-                                  <div className="col-12 col-sm-6 col-md-4 pt-3" key={index}>
-                                    <div className="bg-white p-2 shadow rounded-3 mb-3">
-                                      <div className="d-flex justify-content-between">
-                                        <small className="text-muted">Temp.</small>
-                                        {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max)) * 1.8 + ' / ' + (Math.floor(element.main.temp_min)) * 1.8 + '° '}`}
+                            {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) != (weatherResponse.list[0].dt_txt).slice(0, 10) }).map((element, index) => {
+                                    return (
+                                      <div className="col-12 col-sm-6 col-md-4 pt-3" key={index}>
+                                        <div className="bg-white p-2 shadow rounded-3 mb-3">
+                                          <div className="d-flex justify-content-between">
+                                            <small className="text-muted">Temp.</small>
+                                            {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
+                                          </div>
+                                          <div className="d-flex justify-content-between">
+                                            <small className="text-muted">Wind Speed</small>
+                                            <span>
+                                              {element.wind.speed} km/h
+                                            </span>
+                                          </div>
+                                          <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
+                                            {element.dt_txt.slice(0, 16)}
+                                          </small>
+                                        </div>
                                       </div>
-                                      <div className="d-flex justify-content-between">
-                                        <small className="text-muted">Wind Speed</small>
-                                        <span>
-                                          {element.wind.speed} km/h
-                                        </span>
-                                      </div>
-                                      <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
-                                        {element.dt_txt.slice(0, 16)}
-                                      </small>
-                                    </div>
-                                  </div>
-                                )
-                              })}
+                                    )
+                                  })}
                             </div>
                           </div>
                         </div>
