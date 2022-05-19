@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let myArr = [{ 'dt_text': '2022-05-19 18:00:00' }, { 'dt_text': '2022-05-19 19:00:00' }, { 'dt_text': '2022-05-20 20:00:00' }, { 'dt_text': '2022-05-20 21:00:00' }, { 'dt_text': '2022-05-20 22:00:00' }, { 'dt_text': '2022-05-20 23:00:00' }, { 'dt_text': '2022-05-20 24:00:00' }, { 'dt_text': '2022-05-20 18:00:00' }, { 'dt_text': '2022-05-20 18:00:00' }, { 'dt_text': '2022-05-20 18:00:00' }, { 'dt_text': '2022-05-21 18:00:00' }, { 'dt_text': '2022-05-21 18:00:00' }, { 'dt_text': '2022-05-21 18:00:00' }, { 'dt_text': '2022-05-21 18:00:00' }, { 'dt_text': '2022-05-21 18:00:00' }, { 'dt_text': '2022-05-21 18:00:00' }, { 'dt_text': '2022-05-21 18:00:00' }, { 'dt_text': '2022-05-21 18:00:00' }, { 'dt_text': '2022-05-22 18:00:00' }, { 'dt_text': '2022-05-22 18:00:00' }, { 'dt_text': '2022-05-22 18:00:00' }, { 'dt_text': '2022-05-22 18:00:00' }, { 'dt_text': '2022-05-22 18:00:00' }, { 'dt_text': '2022-05-22 18:00:00' }, { 'dt_text': '2022-05-22 18:00:00' }, { 'dt_text': '2022-05-22 18:00:00' }, { 'dt_text': '2022-05-23 18:00:00' }, { 'dt_text': '2022-05-23 18:00:00' }, { 'dt_text': '2022-05-23 18:00:00' }, { 'dt_text': '2022-05-23 18:00:00' }, { 'dt_text': '2022-05-23 18:00:00' }, { 'dt_text': '2022-05-23 18:00:00' }, { 'dt_text': '2022-05-23 18:00:00' }, { 'dt_text': '2022-05-23 18:00:00' }, { 'dt_text': '2022-05-24 18:00:00' }, { 'dt_text': '2022-05-24 18:00:00' }, { 'dt_text': '2022-05-24 18:00:00' }, { 'dt_text': '2022-05-24 18:00:00' }, { 'dt_text': '2022-05-24 18:00:00' }, { 'dt_text': '2022-05-24 18:00:00' },];
+    console.log(myArr[0].dt_text);
+    // result = myArr.filter(compareToday => compareToday == myArr[0].dt_text).map((element, index) => {
+    //   console.log(index)
+    // })
+    myArr.filter(function (el) {
+      return el.dt_text === myArr[0].dt_text
+    }).map((element, index) => {
+      console.log(index,element.dt_text);
+    })
+  </script>
+
+</body>
+
+</html>

@@ -26,6 +26,7 @@ export default function Landing() {
   const [dataAvailable, setDataAvailable] = useState(false);
 
 
+
   const getWeather = async () => {
     setLoading(true);
     // New url for update response
@@ -69,14 +70,19 @@ export default function Landing() {
   sunSetHours = sunSetTime.getHours();
   sunSetMinutes = sunSetTime.getMinutes();
 
+  // result = myArr.filter(compareToday => compareToday == myArr[0])
+
   return (
     <>
+      {
+
+      }
       {loading && <div className="loader">
         <Loader></Loader>
       </div>}
-      <div className={`d-flex justify-content-center align-items-center ${!dataAvailable ? 'vh-100' :''}`}>
-        <div className="container py-2 px-md-auto px-4">
-          <main className={`Shadow-lg rounded-3 overflow-hidden bg-white`}>
+      <div className={`d-flex justify-content-center align-items-center ${!dataAvailable ? 'vh-100' : ''}`}>
+        <div className={`container px-md-auto ${!dataAvailable ? 'p-0' : 'px-4 py-2'}`}>
+          <main className={`Shadow-lg rounded-3 overflow-hidden bg-white ${!dataAvailable ? 'pt-5 col-10 mx-auto' : ''}`}>
             <div className="row">
               {weatherResponse.cod && dataAvailable ? (<>
                 <div className="col-sm-4">
@@ -116,7 +122,7 @@ export default function Landing() {
                     <div className="progress mb-3" style={{ height: "4px" }}>
                       <div className={`progress-bar bg-warning`} role="progressbar" style={{ width: `${weatherResponse.list[0].main.humidity}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <p className="d-none d-sm-block py-1 bg-warning bg-opacity-10 text-warning mt-4 mb-0 text-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
+                    <p className="d-none d-sm-block py-2 bg-warning bg-opacity-10 text-warning mt-4 mb-0 text-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
                   </div>
                 </div>
                 <div className="col-sm-8 bg-light">
@@ -168,6 +174,11 @@ export default function Landing() {
                                   <span className="text-muted">Forecast</span>
                                 </div>
                               </div>
+                              <p className="bg-danger">
+                                {weatherResponse.list.filter(function (el) {return el.dt_text == weatherResponse.list[0].dt_text}).map((element, index) => {
+                                  return <>{element.dt_txt}</>
+                                })}
+                              </p>
                               {weatherResponse.list.slice(0, 9).map((element, index) => {
                                 return (
                                   <div className="col-12 col-sm-6 col-md-4 pt-3" key={index}>
@@ -220,18 +231,19 @@ export default function Landing() {
                       </div>
                     </div>
                   </div>
-                  <p className="d-sm-none d-block py-1 bg-warning bg-opacity-10 text-warning mb-0 text-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
+                  <p className="d-sm-none d-block py-2 bg-warning bg-opacity-10 text-warning mb-0 text-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
                 </div>
               </>) : <>
                 <div className="col-12 col-sm-4 text-center mx-auto">
                   <img src={NoData} alt="NO data" className="img-fluid mb-2 mt-5 px-5" />
                 </div>
                 <div className="col-11 mx-auto">
-                  <p className="text-muted text-center mb-2">Kindly search a Valid city.</p>
+                  <h4 className="text-muted text-center my-2">Kindly search a Valid city.</h4>
                 </div>
                 <div className="col-10 col-sm-4 mx-auto">
                   <TopSearchBar location={location} onSubmit={onSearch} ref={searchRef} />
                 </div>
+                <p className="py-2 bg-warning bg-opacity-10 text-warning mt-4 mb-0 text-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
               </>}
             </div>
           </main>
