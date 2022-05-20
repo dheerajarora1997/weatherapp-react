@@ -206,7 +206,7 @@ export default function Landing() {
                               </div>
                               <div className="col-12">
                                 <div className="row">
-                                  {weatherResponse.list.slice(0, 7).filter(function (el) { return (el.dt_txt).slice(0, 10) != (weatherResponse.list[0].dt_txt).slice(0, 10) }).map((element, index) => {
+                                  {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[9].dt_txt).slice(0, 10) }).map((element, index) => {
                                     return (
                                       <div className="col-12 col-sm-6 col-md-4 pt-3" key={index}>
                                         <div className="bg-white p-2 shadow rounded-3 mb-3">
@@ -248,7 +248,7 @@ export default function Landing() {
                                             </span>
                                           </div>
                                           <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
-                                            {element.dt_txt.slice(0, 16)}
+                                            {element.dt_txt.slice(11, 16)}
                                           </small>
                                         </div>
                                       </div>
