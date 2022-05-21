@@ -27,13 +27,11 @@ export default function Landing() {
   const [forecastValue, setForecastValue] = useState(9);
 
   const addForecastValue = () => {
-    setForecastValue( forecastValue + 7);
-    console.log(forecastValue)
+    setForecastValue(forecastValue + 7);
   }
-  
-  const  lessForecastValue = () => {
-    setForecastValue( forecastValue - 7);
-    console.log(forecastValue)
+
+  const lessForecastValue = () => {
+    setForecastValue(forecastValue - 7);
   }
 
 
@@ -101,10 +99,18 @@ export default function Landing() {
                     <div className="d-flex align-items-center">
                       <TopSearchBar location={location} onSubmit={onSearch} ref={searchRef} />
                     </div>
-                    <Heading level="2" content={`${temperatureUnit === 'celsius' ? currentTemp : Math.ceil(currentTemp * 1.8)}`} styleClass='display-6 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°F'}`} />
-                    
-                    <h5>{weatherResponse.city.name}</h5>
-                    <p className="mb-1">{weatherResponse.city.country}</p>
+                    <div className="row">
+                      <div className="col-8">
+                        <Heading level="2" content={`${temperatureUnit === 'celsius' ? currentTemp : Math.ceil(currentTemp * 1.8)}`} styleClass='display-6 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°F'}`} />
+                        <h5>{weatherResponse.city.name}</h5>
+                        <p className="mb-1">{weatherResponse.city.country}</p>
+                      </div>
+                      <div className="col-4">
+                        <img src={`http://openweathermap.org/img/wn/${weatherResponse.list[0].weather[0].icon}@2x.png`} alt="" />
+                      </div>
+
+                    </div>
+
                     <hr className="my-2" />
                     <p className="d-flex justify-content-between mb-1 mb-md-2">
                       <small className="text-muted">Max / Min</small>
@@ -261,7 +267,7 @@ export default function Landing() {
                               })}
                               {/* Next Button */}
                               <div className="col-12 col-sm-12 col-md-12 pt-3 mb-3">
-                                <div className="bg-light p-0 shadow rounded-3 border h-100" style={{borderStyle:'dashed !important'}}>
+                                <div className="bg-light p-0 shadow rounded-3 border h-100" style={{ borderStyle: 'dashed !important' }}>
                                   <div className="btn-group w-100">
                                     <button className="btn btn-warning bg-opacity-50" type="button" onClick={lessForecastValue} disabled={forecastValue < 10 ? 'disabled' : ''}>
                                       Prev
