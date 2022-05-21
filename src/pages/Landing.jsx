@@ -239,45 +239,54 @@ export default function Landing() {
                           </div>
                           <div className="tab-pane fade" id="forecast" role="tabpanel" aria-labelledby="forecast-tab">
                             <div className="row">
-                              <div className="col-12">
+                              <div className="col-8">
                                 <span className="text-muted">
                                   {weatherResponse.list[forecastValue].dt_txt.slice(0, 10)}
                                 </span>
                               </div>
+                              <div className="col-4 text-end">
+                                {/* Next Button */}
+                                <div className="btn-group btn-group-sm ">
+                                  <button className="btn btn-warning bg-opacity-50" type="button" onClick={lessForecastValue} disabled={forecastValue < 10 ? 'disabled' : ''}>
+                                    Prev
+                                  </button>
+                                  <button className="btn btn-warning bg-opacity-50" type="button" onClick={addForecastValue} disabled={forecastValue > 36 ? 'disabled' : ''}>
+                                    Next
+                                  </button>
+                                </div>
+                              </div>
                               {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[forecastValue].dt_txt).slice(0, 10) }).map((element, index) => {
                                 return (
-                                  <div className="col-12 col-sm-6 col-md-4 pt-3 mb-3" key={index}>
+                                  <div className="col-12 col-sm-6 col-md-6 pt-3 mb-3" key={index}>
                                     <div className="bg-white p-2 shadow rounded-3">
-                                      <div className="d-flex justify-content-between">
-                                        <small className="text-muted">Temp.</small>
-                                        {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
+                                      <div className="row">
+                                        <div className="col-3 pr-0 text-center">
+                                          <div className="bg-light d-flex align-items-center flex-column">
+                                            <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid" />
+                                            <small className="text-muted mb-1 mx-auto" style={{lineHeight : '1'}}>{element.weather[0].main}</small>
+                                          </div>
+                                        </div>
+                                        <div className="col-9">
+                                          <div className="d-flex justify-content-between">
+                                            <small className="text-muted">Temp.</small>
+                                            {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
+                                          </div>
+                                          <div className="d-flex justify-content-between">
+                                            <small className="text-muted">Wind Speed</small>
+                                            <span>
+                                              {element.wind.speed} km/h
+                                            </span>
+                                          </div>
+                                          <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
+                                            {element.dt_txt.slice(11, 16)}
+                                          </small>
+                                        </div>
+
                                       </div>
-                                      <div className="d-flex justify-content-between">
-                                        <small className="text-muted">Wind Speed</small>
-                                        <span>
-                                          {element.wind.speed} km/h
-                                        </span>
-                                      </div>
-                                      <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
-                                        {element.dt_txt.slice(11, 16)}
-                                      </small>
                                     </div>
                                   </div>
                                 )
                               })}
-                              {/* Next Button */}
-                              <div className="col-12 col-sm-12 col-md-12 pt-3 mb-3">
-                                <div className="bg-light p-0 shadow rounded-3 border h-100" style={{ borderStyle: 'dashed !important' }}>
-                                  <div className="btn-group w-100">
-                                    <button className="btn btn-warning bg-opacity-50" type="button" onClick={lessForecastValue} disabled={forecastValue < 10 ? 'disabled' : ''}>
-                                      Prev
-                                    </button>
-                                    <button className="btn btn-warning bg-opacity-50" type="button" onClick={addForecastValue} disabled={forecastValue > 36 ? 'disabled' : ''}>
-                                      Next
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
                             </div>
                           </div>
                         </div>
