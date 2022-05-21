@@ -91,7 +91,7 @@ export default function Landing() {
       {loading && <div className="loader">
         <Loader></Loader>
       </div>}
-      <div className={`d-flex justify-content-center align-items-center ${!dataAvailable ? 'vh-100' : ''}`}>
+      <div className={`d-flex justify-content-center align-items-center ${!dataAvailable ? '' : ''}`}>
         <div className={`container px-md-auto ${!dataAvailable ? 'p-0' : 'px-4 py-2'}`}>
           <main className={`Shadow-lg rounded-3 overflow-hidden bg-white ${!dataAvailable ? 'pt-5 col-10 mx-auto' : ''}`}>
             <div className="row">
@@ -102,8 +102,26 @@ export default function Landing() {
                       <TopSearchBar location={location} onSubmit={onSearch} ref={searchRef} />
                     </div>
                     <Heading level="2" content={`${temperatureUnit === 'celsius' ? currentTemp : Math.ceil(currentTemp * 1.8)}`} styleClass='display-6 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°F'}`} />
+                    
                     <h5>{weatherResponse.city.name}</h5>
                     <p className="mb-1">{weatherResponse.city.country}</p>
+                    <hr className="my-2" />
+                    <p className="d-flex justify-content-between mb-1 mb-md-2">
+                      <small className="text-muted">Max / Min</small>
+                      {`${temperatureUnit === 'celsius' ? Math.ceil(weatherResponse.list[0].main.temp_max) + '° / ' + Math.floor(weatherResponse.list[0].main.temp_min) + '° ' : (Math.ceil(weatherResponse.list[0].main.temp_max * 1.8)) + ' / ' + (Math.floor(weatherResponse.list[0].main.temp_min * 1.8)) + '° '}`}
+                    </p>
+                    <p className="d-flex justify-content-between mb-1 mb-md-2">
+                      <small className="text-muted">Weather Condition</small>
+                      <span>{weatherResponse.list[0].weather[0].main}</span>
+                    </p>
+                    <p className="d-flex justify-content-between mb-1 mb-md-2">
+                      <small className="text-muted">visibility</small>
+                      {(weatherResponse.list[0].visibility * 100 / 10000) + '%'}
+                    </p>
+                    <p className="d-flex justify-content-between mb-1 mb-md-2">
+                      <small className="text-muted">Humidity</small>
+                      {weatherResponse.list[0].main.humidity}%
+                    </p>
                     <hr className="my-2" />
                     <p className="d-flex justify-content-between mb-1 mb-md-2">
                       <small className="text-muted">Sun Rise</small>
@@ -122,25 +140,8 @@ export default function Landing() {
                       <span>{weatherResponse.list[0].wind.deg}°</span>
                     </p>
                     <p className="d-flex justify-content-between mb-1 mb-md-2">
-                      <small className="text-muted">Weather Condition</small>
-                      <span>{weatherResponse.list[0].weather[0].main}</span>
-                    </p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-2">
                       <small className="text-muted">Population</small>
                       <span>{weatherResponse.city.population}</span>
-                    </p>
-                    <hr className="my-2" />
-                    <p className="d-flex justify-content-between mb-1 mb-md-2">
-                      <small className="text-muted">Max / Min</small>
-                      {`${temperatureUnit === 'celsius' ? Math.ceil(weatherResponse.list[0].main.temp_max) + '° / ' + Math.floor(weatherResponse.list[0].main.temp_min) + '° ' : (Math.ceil(weatherResponse.list[0].main.temp_max * 1.8)) + ' / ' + (Math.floor(weatherResponse.list[0].main.temp_min * 1.8)) + '° '}`}
-                    </p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-2">
-                      <small className="text-muted">visibility</small>
-                      {(weatherResponse.list[0].visibility * 100 / 10000) + '%'}
-                    </p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-2">
-                      <small className="text-muted">Humidity</small>
-                      {weatherResponse.list[0].main.humidity}%
                     </p>
                     <div className="progress mb-3" style={{ height: "4px" }}>
                       <div className={`progress-bar bg-warning`} role="progressbar" style={{ width: `${weatherResponse.list[0].main.humidity}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -220,7 +221,7 @@ export default function Landing() {
                                             </span>
                                           </div>
                                           <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
-                                            {element.dt_txt.slice(0, 16)}
+                                            {element.dt_txt.slice(11, 16)}
                                           </small>
                                         </div>
                                       </div>
@@ -252,7 +253,7 @@ export default function Landing() {
                                         </span>
                                       </div>
                                       <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
-                                        {element.dt_txt.slice(0, 16)}
+                                        {element.dt_txt.slice(11, 16)}
                                       </small>
                                     </div>
                                   </div>
