@@ -239,12 +239,12 @@ export default function Landing() {
                           </div>
                           <div className="tab-pane fade" id="forecast" role="tabpanel" aria-labelledby="forecast-tab">
                             <div className="row">
-                              <div className="col-8">
+                              <div className="col-6">
                                 <span className="text-muted">
                                   {weatherResponse.list[forecastValue].dt_txt.slice(0, 10)}
                                 </span>
                               </div>
-                              <div className="col-4 text-end">
+                              <div className="col-6 text-end">
                                 {/* Next Button */}
                                 <div className="btn-group btn-group-sm ">
                                   <button className="btn btn-warning bg-opacity-50" type="button" onClick={lessForecastValue} disabled={forecastValue < 10 ? 'disabled' : ''}>
