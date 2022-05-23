@@ -91,7 +91,7 @@ export default function Landing() {
       </div>}
       <div className={`d-flex justify-content-center align-items-center ${!dataAvailable ? '' : ''}`}>
         <div className={`container px-md-auto ${!dataAvailable ? 'p-0' : 'px-4 py-2'}`}>
-          <main className={`Shadow-lg rounded-3 overflow-hidden bg-white ${!dataAvailable ? 'pt-5 col-10 mx-auto' : ''}`}>
+          <main className={`Shadow-lg rounded-3 overflow-hidden bg-white ${!dataAvailable ? 'pt-5 col-10 mx-auto mt-5' : ''}`}>
             <div className="row">
               {weatherResponse.cod && dataAvailable ? (<>
                 <div className="col-sm-4">
@@ -184,51 +184,31 @@ export default function Landing() {
                                 <div className="row">
                                   {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[0].dt_txt).slice(0, 10) }).map((element, index) => {
                                     return (
-                                      <div className="col-12 col-sm-6 col-md-4 pt-3 mb-3" key={index}>
+                                      <div className="col-12 col-sm-6 col-md-6 pt-3 mb-3" key={index}>
                                         <div className="bg-white p-2 shadow rounded-3">
-                                          <div className="d-flex justify-content-between">
-                                            <small className="text-muted">Temp.</small>
-                                            {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
+                                          <div className="row">
+                                            <div className="col-3 pr-0 text-center">
+                                              <div className="bg-light d-flex align-items-center flex-column">
+                                                <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid" />
+                                                <small className="text-muted mb-1 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
+                                              </div>
+                                            </div>
+                                            <div className="col-8">
+                                              <div className="d-flex justify-content-between">
+                                                <small className="text-muted">Temp.</small>
+                                                {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
+                                              </div>
+                                              <div className="d-flex justify-content-between">
+                                                <small className="text-muted">Wind Speed</small>
+                                                <span>
+                                                  {element.wind.speed} km/h
+                                                </span>
+                                              </div>
+                                              <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
+                                                {element.dt_txt.slice(11, 16)}
+                                              </small>
+                                            </div>
                                           </div>
-                                          <div className="d-flex justify-content-between">
-                                            <small className="text-muted">Wind Speed</small>
-                                            <span>
-                                              {element.wind.speed} km/h
-                                            </span>
-                                          </div>
-                                          <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
-                                            {element.dt_txt.slice(11, 16)}
-                                          </small>
-                                        </div>
-                                      </div>
-                                    )
-                                  })}
-                                </div>
-                              </div>
-                              <div className="col-12">
-                                <div className="d-flex align-items-center">
-                                  <span className="text-muted">Tomorrow</span>
-                                </div>
-                              </div>
-                              <div className="col-12">
-                                <div className="row">
-                                  {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[9].dt_txt).slice(0, 10) }).map((element, index) => {
-                                    return (
-                                      <div className="col-12 col-sm-6 col-md-4 pt-3 mb-3" key={index}>
-                                        <div className="bg-white p-2 shadow rounded-3">
-                                          <div className="d-flex justify-content-between">
-                                            <small className="text-muted">Temp.</small>
-                                            {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
-                                          </div>
-                                          <div className="d-flex justify-content-between">
-                                            <small className="text-muted">Wind Speed</small>
-                                            <span>
-                                              {element.wind.speed} km/h
-                                            </span>
-                                          </div>
-                                          <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
-                                            {element.dt_txt.slice(11, 16)}
-                                          </small>
                                         </div>
                                       </div>
                                     )
@@ -263,7 +243,7 @@ export default function Landing() {
                                         <div className="col-3 pr-0 text-center">
                                           <div className="bg-light d-flex align-items-center flex-column">
                                             <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid" />
-                                            <small className="text-muted mb-1 mx-auto" style={{lineHeight : '1'}}>{element.weather[0].main}</small>
+                                            <small className="text-muted mb-1 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
                                           </div>
                                         </div>
                                         <div className="col-9">
