@@ -231,7 +231,7 @@ export default function Landing() {
                       <div className="tab-content" id="myTabContent">
                         <div className="tab-pane fade show active" id="today" role="tabpanel" aria-labelledby="today-tab">
                           <div className="d-flex align-items-center">
-                            <span className="text-muted mb-2">Today</span>
+                            <span className="text-muted mb-1">Today</span>
                           </div>
                           <Slider {...sliderSettings}>
                             {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[0].dt_txt).slice(0, 10) }).map((element, index) => {
@@ -262,7 +262,7 @@ export default function Landing() {
                             })}
                           </Slider>
                           <div className="d-flex align-items-center">
-                            <span className="text-muted mb-2">Tomorrow</span>
+                            <span className="text-muted mb-1">Tomorrow</span>
                           </div>
                           <Slider {...sliderSettings}>
                             {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[9].dt_txt).slice(0, 10) }).map((element, index) => {
