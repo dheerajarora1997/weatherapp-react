@@ -1,4 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Slider from "react-slick";
+
+// Import css files
+import "slick-carousel/slick/slick.scss";
+import "slick-carousel/slick/slick-theme.scss";
 
 import Heading from '../components/Heading';
 import TopSearchBar from '../components/TopSearchBar';
@@ -33,8 +38,6 @@ export default function Landing() {
   const lessForecastValue = () => {
     setForecastValue(forecastValue - 7);
   }
-
-
 
   const getWeather = async () => {
     setLoading(true);
@@ -79,18 +82,72 @@ export default function Landing() {
   sunSetHours = sunSetTime.getHours();
   sunSetMinutes = sunSetTime.getMinutes();
 
-  // result = myArr.filter(compareToday => compareToday == myArr[0])
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block", color: "#323232" }}
+        onClick={onClick}
+      >chevron_right</div>
+    );
+  }
+
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div className={` material-icons-outlined ${className}`} style={{ ...style, display: "block", color: "#323232" }} onClick={onClick}> chevron_left </div>
+    );
+  }
+  const sliderSettings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    centerMode: false,
+    centerPadding: '50px',
+    prevArrow: <SamplePrevArrow />,
+    nextArrow: <SampleNextArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 769,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 375,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      },
+    ]
+  }
 
   return (
     <>
-      {
-
-      }
       {loading && <div className="loader">
         <Loader></Loader>
       </div>}
-      <div className={`d-flex justify-content-center align-items-center ${!dataAvailable ? '' : ''}`}>
-        <div className={`container px-md-auto ${!dataAvailable ? 'p-0' : 'px-4 py-2'}`}>
+      <div className={`d-flex justify-content-center align-items-center `} style={{minHeight: '100vh',}}>
+        <div className="container py-2">
           <main className={`Shadow-lg rounded-3 overflow-hidden bg-white ${!dataAvailable ? 'pt-5 col-10 mx-auto mt-5' : ''}`}>
             <div className="row">
               {weatherResponse.cod && dataAvailable ? (<>
@@ -100,13 +157,13 @@ export default function Landing() {
                       <TopSearchBar location={location} onSubmit={onSearch} ref={searchRef} />
                     </div>
                     <div className="row">
-                      <div className="col-8">
-                        <Heading level="2" content={`${temperatureUnit === 'celsius' ? currentTemp : Math.ceil(currentTemp * 1.8)}`} styleClass='display-6 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°F'}`} />
+                      <div className="col-7">
+                        <Heading level="2" content={`${temperatureUnit === 'celsius' ? currentTemp : Math.ceil(currentTemp * 1.8)}`} styleClassName='display-6 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°F'}`} />
                         <h5>{weatherResponse.city.name}</h5>
                         <p className="mb-1">{weatherResponse.city.country}</p>
                       </div>
-                      <div className="col-4">
-                        <img src={`http://openweathermap.org/img/wn/${weatherResponse.list[0].weather[0].icon}@2x.png`} alt="" />
+                      <div className="col-5">
+                        <img src={`http://openweathermap.org/img/wn/${weatherResponse.list[0].weather[0].icon}@2x.png`} className="img-fluid" alt="" />
                       </div>
 
                     </div>
@@ -152,7 +209,7 @@ export default function Landing() {
                     <div className="progress mb-3" style={{ height: "4px" }}>
                       <div className={`progress-bar bg-warning`} role="progressbar" style={{ width: `${weatherResponse.list[0].main.humidity}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <p className="d-none d-sm-block py-2 bg-warning bg-opacity-10 text-warning mt-2 mb-0 text-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
+                    <p className="d-none d-sm-flex py-2 bg-warning bg-opacity-10 text-warning mt-2 mb-0 text-center mx-auto w-100 justify-content-center align-items-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
                   </div>
                 </div>
                 <div className="col-sm-8 bg-light">
@@ -170,104 +227,116 @@ export default function Landing() {
                         <button className="btn btn-sm btn-warning text-light" onClick={switchTempUnit} >Switch to {temperatureUnit === 'celsius' ? 'Fahrenheit' : 'Celsius'}</button>
                       </div>
                     </div>
-                    <div className="d-flex justify-content-between">
-                      <div className="row">
-                        <div className="tab-content" id="myTabContent">
-                          <div className="tab-pane fade show active" id="today" role="tabpanel" aria-labelledby="today-tab">
-                            <div className="row">
-                              <div className="col-12">
-                                <div className="d-flex align-items-center">
-                                  <span className="text-muted">Today</span>
-                                </div>
-                              </div>
-                              <div className="col-12">
-                                <div className="row">
-                                  {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[0].dt_txt).slice(0, 10) }).map((element, index) => {
-                                    return (
-                                      <div className="col-12 col-sm-6 col-md-6 pt-3 mb-3" key={index}>
-                                        <div className="bg-white p-2 shadow rounded-3">
-                                          <div className="row">
-                                            <div className="col-3 pr-0 text-center">
-                                              <div className="bg-light d-flex align-items-center flex-column">
-                                                <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid" />
-                                                <small className="text-muted mb-1 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
-                                              </div>
-                                            </div>
-                                            <div className="col-8">
-                                              <div className="d-flex justify-content-between">
-                                                <small className="text-muted">Temp.</small>
-                                                {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
-                                              </div>
-                                              <div className="d-flex justify-content-between">
-                                                <small className="text-muted">Wind Speed</small>
-                                                <span>
-                                                  {element.wind.speed} km/h
-                                                </span>
-                                              </div>
-                                              <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
-                                                {element.dt_txt.slice(11, 16)}
-                                              </small>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    )
-                                  })}
-                                </div>
-                              </div>
-                            </div>
+                    <div className="d-block">
+                      <div className="tab-content" id="myTabContent">
+                        <div className="tab-pane fade show active" id="today" role="tabpanel" aria-labelledby="today-tab">
+                          <div className="d-flex align-items-center">
+                            <span className="text-muted mb-2">Today</span>
                           </div>
-                          <div className="tab-pane fade" id="forecast" role="tabpanel" aria-labelledby="forecast-tab">
-                            <div className="row">
-                              <div className="col-6">
-                                <span className="text-muted">
-                                  {weatherResponse.list[forecastValue].dt_txt.slice(0, 10)}
-                                </span>
-                              </div>
-                              <div className="col-6 text-end">
-                                {/* Next Button */}
-                                <div className="btn-group btn-group-sm ">
-                                  <button className="btn btn-warning bg-opacity-50" type="button" onClick={lessForecastValue} disabled={forecastValue < 10 ? 'disabled' : ''}>
-                                    Prev
-                                  </button>
-                                  <button className="btn btn-warning bg-opacity-50" type="button" onClick={addForecastValue} disabled={forecastValue > 36 ? 'disabled' : ''}>
-                                    Next
-                                  </button>
-                                </div>
-                              </div>
-                              {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[forecastValue].dt_txt).slice(0, 10) }).map((element, index) => {
-                                return (
-                                  <div className="col-12 col-sm-6 col-md-6 pt-3 mb-3" key={index}>
-                                    <div className="bg-white p-2 shadow rounded-3">
-                                      <div className="row">
-                                        <div className="col-3 pr-0 text-center">
-                                          <div className="bg-light d-flex align-items-center flex-column">
-                                            <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid" />
-                                            <small className="text-muted mb-1 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
-                                          </div>
-                                        </div>
-                                        <div className="col-9">
-                                          <div className="d-flex justify-content-between">
-                                            <small className="text-muted">Temp.</small>
-                                            {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
-                                          </div>
-                                          <div className="d-flex justify-content-between">
-                                            <small className="text-muted">Wind Speed</small>
-                                            <span>
-                                              {element.wind.speed} km/h
-                                            </span>
-                                          </div>
-                                          <small className="d-block badge bg-warning text-warning bg-opacity-25 mt-2">
-                                            {element.dt_txt.slice(11, 16)}
-                                          </small>
-                                        </div>
-
-                                      </div>
+                          <Slider {...sliderSettings}>
+                            {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[0].dt_txt).slice(0, 10) }).map((element, index) => {
+                              return (
+                                <div className="p-2" key={index} index={index}>
+                                  <div className="bg-white p-2 shadow rounded-3 mb-2">
+                                    <div className="bg-light bg-opacity-50 d-flex align-items-center flex-column mb-2">
+                                      <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid filter-img" />
+                                      <small className="text-muted mb-2 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
                                     </div>
+                                    <div className="d-flex justify-content-center mt-1">
+                                      {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
+                                    </div>
+                                    <div className="d-flex justify-content-center">
+                                      <span>
+                                        {element.wind.speed} km/h
+                                      </span>
+                                    </div>
+                                    <small className="d-flex badge bg-secondary text-white bg-opacity-50 mt-2 align-items-center justify-content-center">
+                                      <span className="material-icons-outlined me-1"> query_builder </span>
+                                      <span>
+                                        {element.dt_txt.slice(11, 16)}
+                                      </span>
+                                    </small>
                                   </div>
-                                )
-                              })}
+                                </div>
+                              )
+                            })}
+                          </Slider>
+                          <div className="d-flex align-items-center">
+                            <span className="text-muted mb-2">Tomorrow</span>
+                          </div>
+                          <Slider {...sliderSettings}>
+                            {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[9].dt_txt).slice(0, 10) }).map((element, index) => {
+                              return (
+                                <div className="p-2" key={index} index={index}>
+                                  <div className="bg-white p-2 shadow rounded-3 mb-2">
+                                    <div className="bg-light bg-opacity-50 d-flex align-items-center flex-column mb-2">
+                                      <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid filter-img" />
+                                      <small className="text-muted mb-2 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
+                                    </div>
+                                    <div className="d-flex justify-content-center mt-1">
+                                      {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
+                                    </div>
+                                    <div className="d-flex justify-content-center">
+                                      <span>
+                                        {element.wind.speed} km/h
+                                      </span>
+                                    </div>
+                                    <small className="d-flex badge bg-secondary text-white bg-opacity-50 mt-2 align-items-center justify-content-center">
+                                      <span className="material-icons-outlined me-1"> query_builder </span>
+                                      <span>
+                                        {element.dt_txt.slice(11, 16)}
+                                      </span>
+                                    </small>
+                                  </div>
+                                </div>
+                              )
+                            })}
+                          </Slider>
+                        </div>
+                        <div className="tab-pane fade" id="forecast" role="tabpanel" aria-labelledby="forecast-tab">
+                          <div className="row">
+                            <div className="col-6">
+                              <span className="text-muted">
+                                {weatherResponse.list[forecastValue].dt_txt.slice(0, 10)}
+                              </span>
                             </div>
+                            <div className="col-6 text-end">
+                              {/* Next Button */}
+                              <div className="btn-group btn-group-sm ">
+                                <button className="btn btn-warning bg-opacity-50" type="button" onClick={lessForecastValue} disabled={forecastValue < 10 ? 'disabled' : ''}>
+                                  Prev
+                                </button>
+                                <button className="btn btn-warning bg-opacity-50" type="button" onClick={addForecastValue} disabled={forecastValue > 36 ? 'disabled' : ''}>
+                                  Next
+                                </button>
+                              </div>
+                            </div>
+                            {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[forecastValue].dt_txt).slice(0, 10) }).map((element, index) => {
+                              return (
+                                <div className="col-12 col-sm-6 col-md-3 pt-3 mb-2" key={index}>
+                                  <div className="bg-white p-2 shadow rounded-3">
+                                    <div className="bg-light bg-opacity-50 d-flex align-items-center flex-column mb-2">
+                                      <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid filter-img" />
+                                      <small className="text-muted mb-2 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
+                                    </div>
+                                    <div className="d-flex justify-content-center">
+                                      {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
+                                    </div>
+                                    <div className="d-flex justify-content-center">
+                                      <span>
+                                        {element.wind.speed} km/h
+                                      </span>
+                                    </div>
+                                    <small className="d-flex badge bg-secondary text-white bg-opacity-50 mt-2 align-items-center justify-content-center">
+                                      <span className="material-icons-outlined me-1"> query_builder </span>
+                                      <span>
+                                        {element.dt_txt.slice(11, 16)}
+                                      </span>
+                                    </small>
+                                  </div>
+                                </div>
+                              )
+                            })}
                           </div>
                         </div>
                       </div>

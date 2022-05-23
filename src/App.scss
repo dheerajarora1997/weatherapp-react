@@ -4,10 +4,27 @@ body {
 
 @media only screen and (min-width: 767px) {
   .app-left-block {
-    min-height: calc(100vh - 30px);
+    // min-height: calc(100vh - 30px);
   }
 }
 
+.material-icons-outlined {
+  font-size: 16px;
+  line-height: 0;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #323232 !important;
+  font-family: initial !important;
+}
+
+.slick-track {
+  margin-left: 0 !important;
+}
+.slick-next{
+  right: -22px;
+}
 .nav-tabs {
   border: none;
 
@@ -45,4 +62,12 @@ body {
   align-items: center;
   background: rgba(0, 0, 0, .3);
   backdrop-filter: saturate(250%) blur(5px);
+}
+
+img.filter-img {
+  filter: contrast(140%) brightness(170%)
+}
+
+.slick-disabled {
+  cursor: not-allowed !important;
 }
