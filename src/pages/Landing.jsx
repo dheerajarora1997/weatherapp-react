@@ -132,7 +132,7 @@ export default function Landing() {
         }
       },
       {
-        breakpoint: 375,
+        breakpoint: 200,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -303,17 +303,17 @@ export default function Landing() {
                             <div className="col-6 text-end">
                               {/* Next Button */}
                               <div className="btn-group btn-group-sm ">
-                                <button className="btn btn-warning bg-opacity-50" type="button" onClick={lessForecastValue} disabled={forecastValue < 10 ? 'disabled' : ''}>
+                                <button className="btn btn-warning bg-opacity-50 text-white" type="button" onClick={lessForecastValue} disabled={forecastValue < 10 ? 'disabled' : ''}>
                                   Prev
                                 </button>
-                                <button className="btn btn-warning bg-opacity-50" type="button" onClick={addForecastValue} disabled={forecastValue > 36 ? 'disabled' : ''}>
+                                <button className="btn btn-warning bg-opacity-50 text-white" type="button" onClick={addForecastValue} disabled={forecastValue > 36 ? 'disabled' : ''}>
                                   Next
                                 </button>
                               </div>
                             </div>
                             {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[forecastValue].dt_txt).slice(0, 10) }).map((element, index) => {
                               return (
-                                <div className="col-12 col-sm-6 col-md-3 pt-3 mb-2" key={index}>
+                                <div className="col-6 col-sm-6 col-md-3 pt-3 mb-2" key={index}>
                                   <div className="bg-white p-2 shadow rounded-3">
                                     <div className="bg-light bg-opacity-50 d-flex align-items-center flex-column mb-2">
                                       <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid filter-img" />
