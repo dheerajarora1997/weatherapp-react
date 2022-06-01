@@ -207,9 +207,9 @@ export default function Landing() {
                       <span>{weatherResponse.city.population}</span>
                     </p>
                     <div className="progress mb-3" style={{ height: "4px" }}>
-                      <div className={`progress-bar bg-warning`} role="progressbar" style={{ width: `${weatherResponse.list[0].main.humidity}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div className={`progress-bar bg-primary`} role="progressbar" style={{ width: `${weatherResponse.list[0].main.humidity}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <p className="d-none d-sm-flex py-2 bg-warning bg-opacity-10 text-warning mt-2 mb-0 text-center mx-auto w-100 justify-content-center align-items-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
+                    <p className="d-none d-sm-flex py-2 bg-primary bg-opacity-10 text-primary mt-4 mb-0 text-center mx-auto w-100 justify-content-center align-items-center"><small className="text-muted">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
                   </div>
                 </div>
                 <div className="col-sm-8 bg-light">
@@ -224,7 +224,7 @@ export default function Landing() {
                         </li>
                       </ul>
                       <div className="d-flex">
-                        <button className="btn btn-sm btn-warning text-light" onClick={switchTempUnit} >Switch to {temperatureUnit === 'celsius' ? 'Fahrenheit' : 'Celsius'}</button>
+                        <button className="btn btn-sm btn-primary text-light" onClick={switchTempUnit} >Switch to {temperatureUnit === 'celsius' ? 'Fahrenheit' : 'Celsius'}</button>
                       </div>
                     </div>
                     <div className="d-block">
@@ -303,10 +303,10 @@ export default function Landing() {
                             <div className="col-6 text-end">
                               {/* Next Button */}
                               <div className="btn-group btn-group-sm ">
-                                <button className="btn btn-warning bg-opacity-50 text-white" type="button" onClick={lessForecastValue} disabled={forecastValue < 10 ? 'disabled' : ''}>
+                                <button className="btn btn-primary bg-opacity-50 text-white" type="button" onClick={lessForecastValue} disabled={forecastValue < 10 ? 'disabled' : ''}>
                                   Prev
                                 </button>
-                                <button className="btn btn-warning bg-opacity-50 text-white" type="button" onClick={addForecastValue} disabled={forecastValue > 36 ? 'disabled' : ''}>
+                                <button className="btn btn-primary bg-opacity-50 text-white" type="button" onClick={addForecastValue} disabled={forecastValue > 36 ? 'disabled' : ''}>
                                   Next
                                 </button>
                               </div>
@@ -342,7 +342,7 @@ export default function Landing() {
                       </div>
                     </div>
                   </div>
-                  <p className="d-sm-none d-block py-2 bg-warning bg-opacity-10 text-warning mb-0 text-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
+                  <p className="d-sm-none d-block py-2 bg-primary bg-opacity-10 text-primary mb-0 text-center"><small className="text-muted">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
                 </div>
               </>) : <>
                 <div className="col-12 col-sm-4 text-center mx-auto">
@@ -354,7 +354,7 @@ export default function Landing() {
                 <div className="col-10 col-sm-4 mx-auto">
                   <TopSearchBar location={location} onSubmit={onSearch} ref={searchRef} />
                 </div>
-                <p className="py-2 bg-warning bg-opacity-10 text-warning mt-4 mb-0 text-center"><small className="text-muted">Developer : </small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-warning">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
+                <p className="py-2 bg-primary bg-opacity-10 text-primary mt-4 mb-0 text-center"><small className="text-muted">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
               </>}
             </div>
           </main>
