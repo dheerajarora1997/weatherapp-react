@@ -348,7 +348,7 @@ export default function Landing() {
                 </div>
               </>) : <>
                 <div className="col-12 col-sm-3 pt-3 text-center mx-auto">
-                  <img src={NoData} alt="NO data" className="img-fluid mt-4 mb-4 px-5" />
+                  <img src={NoData} alt="NO data" className="img-fluid mt-4 mb-4 px-5 col-9 col-sm-12" />
                 </div>
                 <div className="col-11 mx-auto">
                   <h5 className="text-white text-opacity-75 text-center my-2">Kindly search a Valid city.</h5>
