@@ -146,9 +146,9 @@ export default function Landing() {
       {loading && <div className="loader">
         <Loader></Loader>
       </div>}
-      <div className={`d-flex justify-content-center align-items-center `} style={{minHeight: '100vh',}}>
+      <div className={`d-flex justify-content-center align-items-center text-white`} style={{ minHeight: '100vh', }}>
         <div className="container py-2">
-          <main className={`Shadow-lg rounded-3 overflow-hidden bg-white shadow ${!dataAvailable ? 'pt-5 col-10 mx-auto mt-5' : ''}`}>
+          <main className={`Shadow-lg rounded-3 overflow-hidden bg-light bg-opacity-10 shadow ${!dataAvailable ? 'pt-5 col-10 mx-auto mt-5' : ''}`}>
             <div className="row">
               {weatherResponse.cod && dataAvailable ? (<>
                 <div className="col-sm-4 border-end">
@@ -158,7 +158,10 @@ export default function Landing() {
                     </div>
                     <div className="row">
                       <div className="col-7">
-                        <Heading level="2" content={`${temperatureUnit === 'celsius' ? currentTemp : Math.ceil(currentTemp * 1.8)}`} styleClassName='display-6 text-center fw-light d-flex align-items-center' subContent={`${temperatureUnit === 'celsius' ? '°C' : '°F'}`} />
+                        <h3 className="display-6 text-center fw-light d-flex align-items-center text-white">
+                          {temperatureUnit === 'celsius' ? currentTemp : Math.ceil(currentTemp * 1.8)}
+                          <span className="h3 fw-light text-white text-opacity-75">{temperatureUnit === 'celsius' ? '°C' : '°F'}</span>
+                        </h3>
                         <h5>{weatherResponse.city.name}</h5>
                         <p className="mb-1">{weatherResponse.city.country}</p>
                       </div>
@@ -170,49 +173,49 @@ export default function Landing() {
 
                     <hr className="my-2" />
                     <p className="d-flex justify-content-between mb-1 mb-md-2">
-                      <small className="text-muted">Max / Min</small>
+                      <small className="text-white text-opacity-75">Max / Min</small>
                       {`${temperatureUnit === 'celsius' ? Math.ceil(weatherResponse.list[0].main.temp_max) + '° / ' + Math.floor(weatherResponse.list[0].main.temp_min) + '° ' : (Math.ceil(weatherResponse.list[0].main.temp_max * 1.8)) + ' / ' + (Math.floor(weatherResponse.list[0].main.temp_min * 1.8)) + '° '}`}
                     </p>
                     <p className="d-flex justify-content-between mb-1 mb-md-2">
-                      <small className="text-muted">Weather Condition</small>
+                      <small className="text-white text-opacity-75">Weather Condition</small>
                       <span>{weatherResponse.list[0].weather[0].main}</span>
                     </p>
                     <p className="d-flex justify-content-between mb-1 mb-md-2">
-                      <small className="text-muted">visibility</small>
+                      <small className="text-white text-opacity-75">visibility</small>
                       {(weatherResponse.list[0].visibility * 100 / 10000) + '%'}
                     </p>
                     <p className="d-flex justify-content-between mb-1 mb-md-2">
-                      <small className="text-muted">Humidity</small>
+                      <small className="text-white text-opacity-75">Humidity</small>
                       {weatherResponse.list[0].main.humidity}%
                     </p>
                     <hr className="my-2" />
                     <p className="d-flex justify-content-between mb-1 mb-md-2">
-                      <small className="text-muted">Sun Rise</small>
+                      <small className="text-white text-opacity-75">Sun Rise</small>
                       <span>{riseHours < 10 ? `0${riseHours}` : riseHours}:{riseMinutes < 10 ? `0${riseMinutes}` : riseMinutes}</span>
                     </p>
                     <p className="d-flex justify-content-between mb-1 mb-md-2">
-                      <small className="text-muted">Sun Set</small>
+                      <small className="text-white text-opacity-75">Sun Set</small>
                       <span>{sunSetHours < 10 ? `0${sunSetHours}` : sunSetHours}:{sunSetMinutes < 10 ? `0${sunSetMinutes}` : sunSetMinutes}</span>
                     </p>
                     <p className="d-flex justify-content-between mb-1 mb-md-2">
-                      <small className="text-muted">Wind Speed</small>
+                      <small className="text-white text-opacity-75">Wind Speed</small>
                       <span>{weatherResponse.list[0].wind.speed} k/h</span>
                     </p>
                     <p className="d-flex justify-content-between mb-1 mb-md-2">
-                      <small className="text-muted">Wind Degree</small>
+                      <small className="text-white text-opacity-75">Wind Degree</small>
                       <span>{weatherResponse.list[0].wind.deg}°</span>
                     </p>
                     <p className="d-flex justify-content-between mb-1 mb-md-2">
-                      <small className="text-muted">Population</small>
+                      <small className="text-white text-opacity-75">Population</small>
                       <span>{weatherResponse.city.population}</span>
                     </p>
                     <div className="progress mb-3" style={{ height: "4px" }}>
                       <div className={`progress-bar bg-primary`} role="progressbar" style={{ width: `${weatherResponse.list[0].main.humidity}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <p className="d-none d-sm-flex py-2 bg-primary bg-opacity-10 text-primary mt-4 mb-0 text-center mx-auto w-100 justify-content-center align-items-center"><small className="text-muted">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
+                    <p className="d-none d-sm-flex py-2 bg-dark text-primary mt-4 mb-0 text-center mx-auto w-100 justify-content-center align-items-center"><small className="text-white text-opacity-75">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <sup className="material-icons-outlined" style={{ fontSize: '12px' }}> launch </sup></a></p>
                   </div>
                 </div>
-                <div className="col-sm-8 bg-white">
+                <div className="col-sm-8 bg-dark">
                   <div className="px-4 py-3">
                     <div className="d-flex justify-content-between align-items-center mb-3">
                       <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -231,16 +234,16 @@ export default function Landing() {
                       <div className="tab-content" id="myTabContent">
                         <div className="tab-pane fade show active" id="today" role="tabpanel" aria-labelledby="today-tab">
                           <div className="d-flex align-items-center">
-                            <span className="text-muted mb-1">Today</span>
+                            <span className="text-white text-opacity-75 mb-1">Today</span>
                           </div>
                           <Slider {...sliderSettings}>
                             {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[0].dt_txt).slice(0, 10) }).map((element, index) => {
                               return (
-                                <div className="px-2" key={index} index={index}>
-                                  <div className="bg-white p-2 shadow-sm border-dark rounded-3 my-1">
-                                    <div className="bg-light bg-opacity-50 d-flex align-items-center flex-column mb-2">
+                                <div className="pe-2" key={index} index={index}>
+                                  <div className="bg-light bg-opacity-10 p-2 shadow-sm border-dark rounded-3 my-1">
+                                    <div className="bg-dark bg-opacity-50 d-flex align-items-center flex-column mb-2 rounded">
                                       <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid filter-img" />
-                                      <small className="text-muted mb-2 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
+                                      <small className="text-white text-opacity-75 mb-2 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
                                     </div>
                                     <div className="d-flex justify-content-center mt-1">
                                       {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
@@ -250,7 +253,7 @@ export default function Landing() {
                                         {element.wind.speed} km/h
                                       </span>
                                     </div>
-                                    <small className="d-flex badge bg-secondary text-white bg-opacity-50 mt-2 align-items-center justify-content-center">
+                                    <small className="d-flex badge bg-primary text-white bg-opacity-75 mt-2 align-items-center justify-content-center">
                                       <span className="material-icons-outlined me-1"> query_builder </span>
                                       <span>
                                         {element.dt_txt.slice(11, 16)}
@@ -262,16 +265,16 @@ export default function Landing() {
                             })}
                           </Slider>
                           <div className="d-flex align-items-center">
-                            <span className="text-muted mb-1">Tomorrow</span>
+                            <span className="text-white text-opacity-75 mt-2 mb-0">Tomorrow</span>
                           </div>
                           <Slider {...sliderSettings}>
                             {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[9].dt_txt).slice(0, 10) }).map((element, index) => {
                               return (
-                                <div className="px-2" key={index} index={index}>
-                                  <div className="bg-white p-2 shadow-sm border-dark rounded-3 my-1">
-                                    <div className="bg-light bg-opacity-50 d-flex align-items-center flex-column mb-2">
+                                <div className="pe-2" key={index} index={index}>
+                                  <div className="bg-light bg-opacity-10 p-2 shadow-sm border-dark rounded-3 my-1">
+                                    <div className="bg-dark bg-opacity-50 d-flex align-items-center flex-column mb-2 rounded">
                                       <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid filter-img" />
-                                      <small className="text-muted mb-2 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
+                                      <small className="text-white text-opacity-75 mb-2 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
                                     </div>
                                     <div className="d-flex justify-content-center mt-1">
                                       {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
@@ -281,7 +284,7 @@ export default function Landing() {
                                         {element.wind.speed} km/h
                                       </span>
                                     </div>
-                                    <small className="d-flex badge bg-secondary text-white bg-opacity-50 mt-2 align-items-center justify-content-center">
+                                    <small className="d-flex badge bg-primary text-white bg-opacity-75 mt-2 align-items-center justify-content-center">
                                       <span className="material-icons-outlined me-1"> query_builder </span>
                                       <span>
                                         {element.dt_txt.slice(11, 16)}
@@ -296,28 +299,28 @@ export default function Landing() {
                         <div className="tab-pane fade" id="forecast" role="tabpanel" aria-labelledby="forecast-tab">
                           <div className="row align-items-center">
                             <div className="col-6">
-                              <span className="text-muted">
+                              <span className="text-white text-opacity-75">
                                 {weatherResponse.list[forecastValue].dt_txt.slice(0, 10)}
                               </span>
                             </div>
                             <div className="col-6 text-end">
                               {/* Next Button */}
                               <div className="btn-group btn-group-sm pb-1">
-                                <button className="btn btn-primary bg-opacity-50 text-white my-2" type="button" onClick={lessForecastValue} disabled={forecastValue < 10 ? 'disabled' : ''}>
+                                <button className="btn btn-primary text-white my-1" type="button" onClick={lessForecastValue} disabled={forecastValue < 10 ? 'disabled' : ''}>
                                   Prev
                                 </button>
-                                <button className="btn btn-primary bg-opacity-50 text-white my-2" type="button" onClick={addForecastValue} disabled={forecastValue > 36 ? 'disabled' : ''}>
+                                <button className="btn btn-primary text-white my-1" type="button" onClick={addForecastValue} disabled={forecastValue > 36 ? 'disabled' : ''}>
                                   Next
                                 </button>
                               </div>
                             </div>
                             {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[forecastValue].dt_txt).slice(0, 10) }).map((element, index) => {
                               return (
-                                <div className="col-6 col-sm-6 col-md-3 pt-3 mb-2" key={index}>
-                                  <div className="bg-white p-2 shadow-sm border-dark rounded-3">
-                                    <div className="bg-light bg-opacity-50 d-flex align-items-center flex-column mb-2">
+                                <div className="col-6 col-sm-6 col-md-3 pt-3 mb-2 ps-0" key={index}>
+                                  <div className="bg-light bg-opacity-10 p-2 shadow-sm border-dark rounded-3">
+                                    <div className="bg-dark bg-opacity-50 d-flex align-items-center flex-column mb-2">
                                       <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid filter-img" />
-                                      <small className="text-muted mb-2 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
+                                      <small className="text-white text-opacity-75 mb-2 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
                                     </div>
                                     <div className="d-flex justify-content-center">
                                       {`${temperatureUnit === 'celsius' ? Math.ceil(element.main.temp_max) + '° / ' + Math.floor(element.main.temp_min) + '° ' : (Math.ceil(element.main.temp_max * 1.8)) + ' / ' + (Math.floor(element.main.temp_min * 1.8)) + '° '}`}
@@ -327,7 +330,7 @@ export default function Landing() {
                                         {element.wind.speed} km/h
                                       </span>
                                     </div>
-                                    <small className="d-flex badge bg-secondary text-white bg-opacity-50 mt-2 align-items-center justify-content-center">
+                                    <small className="d-flex badge bg-primary text-white bg-opacity-75 mt-2 align-items-center justify-content-center">
                                       <span className="material-icons-outlined me-1"> query_builder </span>
                                       <span>
                                         {element.dt_txt.slice(11, 16)}
@@ -342,19 +345,19 @@ export default function Landing() {
                       </div>
                     </div>
                   </div>
-                  <p className="d-sm-none d-block py-2 bg-primary bg-opacity-10 text-primary mb-0 text-center"><small className="text-muted">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
+                  <p className="d-sm-none d-block py-2 bg-dark text-primary mb-0 text-center"><small className="text-white text-opacity-75">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <sup className="material-icons-outlined" style={{ fontSize: '12px' }}> launch </sup></a></p>
                 </div>
               </>) : <>
                 <div className="col-12 col-sm-3 pt-3 text-center mx-auto">
                   <img src={NoData} alt="NO data" className="img-fluid mb-2 px-5" />
                 </div>
                 <div className="col-11 mx-auto">
-                  <h5 className="text-muted text-center my-2">Kindly search a Valid city.</h5>
+                  <h5 className="text-white text-opacity-75 text-center my-2">Kindly search a Valid city.</h5>
                 </div>
                 <div className="col-10 col-sm-4 mx-auto">
-                  <TopSearchBar dataAvailable={dataAvailable}  location={location} onSubmit={onSearch} ref={searchRef} />
+                  <TopSearchBar dataAvailable={dataAvailable} location={location} onSubmit={onSearch} ref={searchRef} />
                 </div>
-                <p className="py-2 bg-primary bg-opacity-10 text-primary mt-4 mb-0 text-center"><small className="text-muted">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
+                <p className="py-2 bg-dark text-primary mt-4 mb-0 text-center"><small className="text-white text-opacity-75">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <sup className="material-icons-outlined" style={{ fontSize: '12px' }}> launch </sup></a></p>
               </>}
             </div>
           </main>

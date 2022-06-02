@@ -1,8 +1,10 @@
 // 1. Include any default functions
 @import "../node_modules/bootstrap/scss/functions";
 // 2. Include any default variable overrides here
-$blue : #4ca0c1;
+$blue : #E76D4D;
+$dark : #212121;
 @import "../node_modules/bootstrap/scss/variables";
+$theme-colors: map-remove($theme-colors, "info", "danger", "success");
 // 3. Include remainder of required Bootstrap stylesheets
 @import "../node_modules/bootstrap/scss/mixins";
 @import "../node_modules/bootstrap/scss/root";
