@@ -1,0 +1,11 @@
+// 1. Include any default functions
+@import "../node_modules/bootstrap/scss/functions";
+// 2. Include any default variable overrides here
+$blue : #e76d4c;
+@import "../node_modules/bootstrap/scss/variables";
+// 3. Include remainder of required Bootstrap stylesheets
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/root";
+
+
+@import "../node_modules/bootstrap/scss/grid", "../node_modules/bootstrap/scss/utilities", "../node_modules/bootstrap/scss/reboot", "../node_modules/bootstrap/scss/buttons", "../node_modules/bootstrap/scss/bootstrap.scss";

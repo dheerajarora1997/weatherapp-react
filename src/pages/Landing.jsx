@@ -294,7 +294,7 @@ export default function Landing() {
                           </Slider>
                         </div>
                         <div className="tab-pane fade" id="forecast" role="tabpanel" aria-labelledby="forecast-tab">
-                          <div className="row">
+                          <div className="row align-items-center">
                             <div className="col-6">
                               <span className="text-muted">
                                 {weatherResponse.list[forecastValue].dt_txt.slice(0, 10)}
