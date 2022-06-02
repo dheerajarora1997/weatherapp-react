@@ -2,7 +2,7 @@ import './App.scss';
 import Landing from './pages/Landing';
 
 function App() {
-  window.document.body.classList.add('bg-dark', 'bg-opacity-10')
+  window.document.body.classList.add('bg-primary', 'bg-opacity-10')
   return (<>
     <Landing></Landing>
   </>

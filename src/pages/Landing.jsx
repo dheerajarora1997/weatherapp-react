@@ -148,11 +148,11 @@ export default function Landing() {
       </div>}
       <div className={`d-flex justify-content-center align-items-center `} style={{minHeight: '100vh',}}>
         <div className="container py-2">
-          <main className={`Shadow-lg rounded-3 overflow-hidden bg-white ${!dataAvailable ? 'pt-5 col-10 mx-auto mt-5' : ''}`}>
+          <main className={`Shadow-lg rounded-3 overflow-hidden bg-white shadow ${!dataAvailable ? 'pt-5 col-10 mx-auto mt-5' : ''}`}>
             <div className="row">
               {weatherResponse.cod && dataAvailable ? (<>
-                <div className="col-sm-4">
-                  <div className="bg-white p-3 d-flex flex-column app-left-block">
+                <div className="col-sm-4 border-end">
+                  <div className=" p-3 d-flex flex-column app-left-block">
                     <div className="d-flex align-items-center">
                       <TopSearchBar location={location} onSubmit={onSearch} ref={searchRef} />
                     </div>
@@ -212,7 +212,7 @@ export default function Landing() {
                     <p className="d-none d-sm-flex py-2 bg-primary bg-opacity-10 text-primary mt-4 mb-0 text-center mx-auto w-100 justify-content-center align-items-center"><small className="text-muted">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
                   </div>
                 </div>
-                <div className="col-sm-8 bg-light">
+                <div className="col-sm-8 bg-white">
                   <div className="px-4 py-3">
                     <div className="d-flex justify-content-between align-items-center mb-3">
                       <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -236,8 +236,8 @@ export default function Landing() {
                           <Slider {...sliderSettings}>
                             {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[0].dt_txt).slice(0, 10) }).map((element, index) => {
                               return (
-                                <div className="p-2" key={index} index={index}>
-                                  <div className="bg-white p-2 shadow rounded-3 mb-2">
+                                <div className="px-2" key={index} index={index}>
+                                  <div className="bg-white p-2 shadow-sm border-dark rounded-3 my-1">
                                     <div className="bg-light bg-opacity-50 d-flex align-items-center flex-column mb-2">
                                       <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid filter-img" />
                                       <small className="text-muted mb-2 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
@@ -267,8 +267,8 @@ export default function Landing() {
                           <Slider {...sliderSettings}>
                             {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[9].dt_txt).slice(0, 10) }).map((element, index) => {
                               return (
-                                <div className="p-2" key={index} index={index}>
-                                  <div className="bg-white p-2 shadow rounded-3 mb-2">
+                                <div className="px-2" key={index} index={index}>
+                                  <div className="bg-white p-2 shadow-sm border-dark rounded-3 my-1">
                                     <div className="bg-light bg-opacity-50 d-flex align-items-center flex-column mb-2">
                                       <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid filter-img" />
                                       <small className="text-muted mb-2 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
@@ -302,11 +302,11 @@ export default function Landing() {
                             </div>
                             <div className="col-6 text-end">
                               {/* Next Button */}
-                              <div className="btn-group btn-group-sm ">
-                                <button className="btn btn-primary bg-opacity-50 text-white" type="button" onClick={lessForecastValue} disabled={forecastValue < 10 ? 'disabled' : ''}>
+                              <div className="btn-group btn-group-sm pb-1">
+                                <button className="btn btn-primary bg-opacity-50 text-white my-2" type="button" onClick={lessForecastValue} disabled={forecastValue < 10 ? 'disabled' : ''}>
                                   Prev
                                 </button>
-                                <button className="btn btn-primary bg-opacity-50 text-white" type="button" onClick={addForecastValue} disabled={forecastValue > 36 ? 'disabled' : ''}>
+                                <button className="btn btn-primary bg-opacity-50 text-white my-2" type="button" onClick={addForecastValue} disabled={forecastValue > 36 ? 'disabled' : ''}>
                                   Next
                                 </button>
                               </div>
@@ -314,7 +314,7 @@ export default function Landing() {
                             {weatherResponse.list.filter(function (el) { return (el.dt_txt).slice(0, 10) == (weatherResponse.list[forecastValue].dt_txt).slice(0, 10) }).map((element, index) => {
                               return (
                                 <div className="col-6 col-sm-6 col-md-3 pt-3 mb-2" key={index}>
-                                  <div className="bg-white p-2 shadow rounded-3">
+                                  <div className="bg-white p-2 shadow-sm border-dark rounded-3">
                                     <div className="bg-light bg-opacity-50 d-flex align-items-center flex-column mb-2">
                                       <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid filter-img" />
                                       <small className="text-muted mb-2 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
@@ -345,14 +345,14 @@ export default function Landing() {
                   <p className="d-sm-none d-block py-2 bg-primary bg-opacity-10 text-primary mb-0 text-center"><small className="text-muted">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
                 </div>
               </>) : <>
-                <div className="col-12 col-sm-4 text-center mx-auto">
-                  <img src={NoData} alt="NO data" className="img-fluid mb-2 mt-5 px-5" />
+                <div className="col-12 col-sm-3 pt-3 text-center mx-auto">
+                  <img src={NoData} alt="NO data" className="img-fluid mb-2 px-5" />
                 </div>
                 <div className="col-11 mx-auto">
-                  <h4 className="text-muted text-center my-2">Kindly search a Valid city.</h4>
+                  <h5 className="text-muted text-center my-2">Kindly search a Valid city.</h5>
                 </div>
                 <div className="col-10 col-sm-4 mx-auto">
-                  <TopSearchBar location={location} onSubmit={onSearch} ref={searchRef} />
+                  <TopSearchBar dataAvailable={dataAvailable}  location={location} onSubmit={onSearch} ref={searchRef} />
                 </div>
                 <p className="py-2 bg-primary bg-opacity-10 text-primary mt-4 mb-0 text-center"><small className="text-muted">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <span className="material-icons-outlined" style={{ fontSize: '15px' }}> launch </span></a></p>
               </>}
