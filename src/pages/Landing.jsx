@@ -5,11 +5,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.scss";
 import "slick-carousel/slick/slick-theme.scss";
 
-import Heading from '../components/Heading';
 import TopSearchBar from '../components/TopSearchBar';
 import Loader from '../components/Loader';
 
-import NoData from '../NoData.png';
+import NoData from '../NoData4.png';
 
 export default function Landing() {
 
@@ -148,7 +147,7 @@ export default function Landing() {
       </div>}
       <div className={`d-flex justify-content-center align-items-center text-white`} style={{ minHeight: '100vh', }}>
         <div className="container py-2">
-          <main className={`Shadow-lg rounded-3 overflow-hidden bg-light bg-opacity-10 shadow ${!dataAvailable ? 'pt-5 col-10 mx-auto mt-5' : ''}`}>
+          <main className={`Shadow-lg rounded-3 overflow-hidden bg-light bg-opacity-10 shadow ${!dataAvailable ? 'pt-4 col-10 mx-auto mt-4' : ''}`}>
             <div className="row">
               {weatherResponse.cod && dataAvailable ? (<>
                 <div className="col-sm-4 border-end">
@@ -349,12 +348,12 @@ export default function Landing() {
                 </div>
               </>) : <>
                 <div className="col-12 col-sm-3 pt-3 text-center mx-auto">
-                  <img src={NoData} alt="NO data" className="img-fluid mb-2 px-5" />
+                  <img src={NoData} alt="NO data" className="img-fluid mt-4 mb-4 px-5" />
                 </div>
                 <div className="col-11 mx-auto">
                   <h5 className="text-white text-opacity-75 text-center my-2">Kindly search a Valid city.</h5>
                 </div>
-                <div className="col-10 col-sm-4 mx-auto">
+                <div className={`col-10 col-sm-4 mx-auto ${!dataAvailable ? 'mb-4' : ''}`}>
                   <TopSearchBar dataAvailable={dataAvailable} location={location} onSubmit={onSearch} ref={searchRef} />
                 </div>
                 <p className="py-2 bg-dark text-primary mt-4 mb-0 text-center"><small className="text-white text-opacity-75">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <sup className="material-icons-outlined" style={{ fontSize: '12px' }}> launch </sup></a></p>
