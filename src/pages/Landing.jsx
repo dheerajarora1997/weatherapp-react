@@ -165,7 +165,7 @@ export default function Landing() {
                         <p className="mb-1">{weatherResponse.city.country}</p>
                       </div>
                       <div className="col-5">
-                        <img src={`http://openweathermap.org/img/wn/${weatherResponse.list[0].weather[0].icon}@2x.png`} className="img-fluid" alt="" />
+                        <img src={`http://openweathermap.org/img/wn/${weatherResponse.list[0].weather[0].icon}@2x.png`} className="bg-light bg-opacity-50 img-fluid rounded-circle" alt="" />
                       </div>
 
                     </div>
@@ -240,7 +240,7 @@ export default function Landing() {
                               return (
                                 <div className="pe-2" key={index} index={index}>
                                   <div className="bg-light bg-opacity-10 p-2 shadow-sm border-dark rounded-3 my-1">
-                                    <div className="bg-dark bg-opacity-50 d-flex align-items-center flex-column mb-2 rounded">
+                                    <div className="bg-light bg-opacity-50 d-flex align-items-center flex-column mb-2 rounded">
                                       <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid filter-img" />
                                       <small className="text-white text-opacity-75 mb-2 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
                                     </div>
