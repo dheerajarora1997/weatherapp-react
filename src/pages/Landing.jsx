@@ -317,7 +317,7 @@ export default function Landing() {
                               return (
                                 <div className="col-6 col-sm-6 col-md-3 pt-3 mb-2 ps-0" key={index}>
                                   <div className="bg-light bg-opacity-10 p-2 shadow-sm border-dark rounded-3">
-                                    <div className="bg-dark bg-opacity-50 d-flex align-items-center flex-column mb-2">
+                                    <div className="bg-light bg-opacity-50 d-flex align-items-center flex-column mb-2">
                                       <img src={`http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="" className="img-fluid filter-img" />
                                       <small className="text-white text-opacity-75 mb-2 mx-auto" style={{ lineHeight: '1' }}>{element.weather[0].main}</small>
                                     </div>
