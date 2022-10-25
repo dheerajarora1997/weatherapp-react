@@ -226,7 +226,7 @@ export default function Landing() {
                         </li>
                       </ul>
                       <div className="d-flex">
-                        <button className="btn btn-sm btn-primary text-light" onClick={switchTempUnit} >Switch to {temperatureUnit === 'celsius' ? 'Fahrenheit' : 'Celsius'}</button>
+                        {/* <button className="btn btn-sm btn-primary text-light" onClick={switchTempUnit} >Switch to {temperatureUnit === 'celsius' ? 'Fahrenheit' : 'Celsius'}</button> */}
                       </div>
                     </div>
                     <div className="d-block">
