@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken =
- 'pk.eyJ1IjoiZGhlZXJhamFyb3JhMTk5NyIsImEiOiJjbDlvM2VmbTQwZHlzM3BvNW04ODU1NTJ1In0.kpZXObzDZM5VFW3y3oq99g';
+ 'pk.eyJ1IjoiZGhlZXJhamFyb3JhMTk5NyIsImEiOiJjbDlvNW4zdHMwZWRrM3VrYjNkb3B6dW5uIn0.NRSOWdRDdv_puvSI1qmUpQ';
 
 export default function Map(props) {
  const mapContainerRef = useRef(null);
