@@ -9,6 +9,7 @@ import TopSearchBar from '../components/TopSearchBar';
 import Loader from '../components/Loader';
 
 import NoData from '../NoData4.png';
+import Map from '../components/Map';
 
 export default function Landing() {
 
@@ -29,6 +30,9 @@ export default function Landing() {
   const [currentTemp, setCurrentTemp] = useState();
   const [dataAvailable, setDataAvailable] = useState(false);
   const [forecastValue, setForecastValue] = useState(9);
+
+  const [lng, setLng] = useState('77.2311')
+  const [lat, setLat] = useState('28.6128')
 
   const addForecastValue = () => {
     setForecastValue(forecastValue + 7);
@@ -54,13 +58,14 @@ export default function Landing() {
     setLoading(false);
   }
 
-
   useEffect(() => {
     getWeather();
   }, [location])
 
   useEffect(() => {
     setCurrentTemp(weatherResponse?.list?.[0]?.main?.temp);
+    setLng(weatherResponse?.city?.coord?.lon);
+    setLat(weatherResponse?.city?.coord?.lat);
   }, [weatherResponse])
 
   const searchRef = useRef(null);
@@ -155,63 +160,64 @@ export default function Landing() {
                     <div className="d-flex align-items-center">
                       <TopSearchBar location={location} onSubmit={onSearch} ref={searchRef} />
                     </div>
-                    <div className="row">
-                      <div className="col-7">
-                        <h3 className="display-6 text-center fw-light d-flex align-items-center text-white">
+                    <div className="row justify-content-center position-relative rounded overflow-hidden g-0">
+                      <div className="col-11 d-flex align-items-center justify-content-between position-absolute bg-dark bg-opacity-75 rounded mt-2 px-2" style={{ 'z-index': '9999' }}>
+                        <span className="m-0 p-1">{weatherResponse.city.country}</span>
+                        <h4 className="m-0 p-1 text-center fw-light d-flex align-items-center text-white">
                           {temperatureUnit === 'celsius' ? currentTemp : Math.ceil(currentTemp * 1.8)}
-                          <span className="h3 fw-light text-white text-opacity-75">{temperatureUnit === 'celsius' ? '°C' : '°F'}</span>
-                        </h3>
-                        <h5>{weatherResponse.city.name}</h5>
-                        <p className="mb-1">{weatherResponse.city.country}</p>
+                          <span className="h5 fw-light text-white text-opacity-50">{temperatureUnit === 'celsius' ? '°C' : '°F'}</span>
+                        </h4>
+                        {/* <h5>{weatherResponse.city.name}</h5> */}
                       </div>
-                      <div className="col-5">
-                        <img src={`http://openweathermap.org/img/wn/${weatherResponse.list[0].weather[0].icon}@2x.png`} className="bg-light bg-opacity-50 img-fluid rounded-circle" alt="" />
+                      <div className="col-12 position-relative" style={{ 'minHeight': '200px' }}>
+                        {/* <img src={`http://openweathermap.org/img/wn/${weatherResponse.list[0].weather[0].icon}@2x.png`} className="bg-light bg-opacity-50 img-fluid rounded-circle" alt="" /> */}
+                        <Map location={location} lng={lng} lat={lat} />
                       </div>
 
                     </div>
 
                     <hr className="my-2" />
-                    <p className="d-flex justify-content-between mb-1 mb-md-2">
+                    <p className="d-flex justify-content-between mb-1 mb-md-1">
                       <small className="text-white text-opacity-75">Max / Min</small>
                       {`${temperatureUnit === 'celsius' ? Math.ceil(weatherResponse.list[0].main.temp_max) + '° / ' + Math.floor(weatherResponse.list[0].main.temp_min) + '° ' : (Math.ceil(weatherResponse.list[0].main.temp_max * 1.8)) + ' / ' + (Math.floor(weatherResponse.list[0].main.temp_min * 1.8)) + '° '}`}
                     </p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-2">
+                    <p className="d-flex justify-content-between mb-1 mb-md-1">
                       <small className="text-white text-opacity-75">Weather Condition</small>
                       <span>{weatherResponse.list[0].weather[0].main}</span>
                     </p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-2">
+                    <p className="d-flex justify-content-between mb-1 mb-md-1">
                       <small className="text-white text-opacity-75">visibility</small>
                       {(weatherResponse.list[0].visibility * 100 / 10000) + '%'}
                     </p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-2">
+                    <p className="d-flex justify-content-between mb-1 mb-md-1">
                       <small className="text-white text-opacity-75">Humidity</small>
                       {weatherResponse.list[0].main.humidity}%
                     </p>
                     <hr className="my-2" />
-                    <p className="d-flex justify-content-between mb-1 mb-md-2">
+                    <p className="d-flex justify-content-between mb-1 mb-md-1">
                       <small className="text-white text-opacity-75">Sun Rise</small>
                       <span>{riseHours < 10 ? `0${riseHours}` : riseHours}:{riseMinutes < 10 ? `0${riseMinutes}` : riseMinutes}</span>
                     </p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-2">
+                    <p className="d-flex justify-content-between mb-1 mb-md-1">
                       <small className="text-white text-opacity-75">Sun Set</small>
                       <span>{sunSetHours < 10 ? `0${sunSetHours}` : sunSetHours}:{sunSetMinutes < 10 ? `0${sunSetMinutes}` : sunSetMinutes}</span>
                     </p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-2">
+                    <p className="d-flex justify-content-between mb-1 mb-md-1">
                       <small className="text-white text-opacity-75">Wind Speed</small>
                       <span>{weatherResponse.list[0].wind.speed} k/h</span>
                     </p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-2">
+                    <p className="d-flex justify-content-between mb-1 mb-md-1">
                       <small className="text-white text-opacity-75">Wind Degree</small>
                       <span>{weatherResponse.list[0].wind.deg}°</span>
                     </p>
-                    <p className="d-flex justify-content-between mb-1 mb-md-2">
+                    {/* <p className="d-flex justify-content-between mb-1 mb-md-1">
                       <small className="text-white text-opacity-75">Population</small>
                       <span>{weatherResponse.city.population}</span>
-                    </p>
+                    </p> */}
                     <div className="progress mb-3" style={{ height: "4px" }}>
                       <div className={`progress-bar bg-primary`} role="progressbar" style={{ width: `${weatherResponse.list[0].main.humidity}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <p className="d-none d-sm-flex py-2 bg-dark text-primary mt-4 mb-0 text-center mx-auto w-100 justify-content-center align-items-center"><small className="text-white text-opacity-75">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <sup className="material-icons-outlined" style={{ fontSize: '12px' }}> launch </sup></a></p>
+                    <p className="d-none d-sm-flex py-2 bg-dark text-primary mt-1 mb-0 text-center mx-auto w-100 justify-content-center align-items-center"><small className="text-white text-opacity-75">Developer : &nbsp;</small><a href="https://www.linkedin.com/in/dheerajarora1997/" rel="noreferrer" target='_blank' className="text-primary">Dheeraj Arora <sup className="material-icons-outlined" style={{ fontSize: '12px' }}> launch </sup></a></p>
                   </div>
                 </div>
                 <div className="col-sm-8 bg-dark">
