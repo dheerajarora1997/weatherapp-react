@@ -161,7 +161,7 @@ export default function Landing() {
                       <TopSearchBar location={location} onSubmit={onSearch} ref={searchRef} />
                     </div>
                     <div className="row justify-content-center position-relative rounded overflow-hidden g-0">
-                      <div className="col-11 d-flex align-items-center justify-content-between position-absolute bg-dark bg-opacity-75 rounded mt-2 px-2" style={{ 'z-index': '9999' }}>
+                      <div className="col-11 d-flex align-items-center justify-content-between position-absolute bg-dark bg-opacity-75 rounded mt-2 px-2" style={{ 'zIndex': '9999' }}>
                         <span className="m-0 p-1">{weatherResponse.city.country}</span>
                         <h4 className="m-0 p-1 text-center fw-light d-flex align-items-center text-white">
                           {temperatureUnit === 'celsius' ? currentTemp : Math.ceil(currentTemp * 1.8)}

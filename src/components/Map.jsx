@@ -24,12 +24,6 @@ export default function Map(props) {
 
   return () => map.remove();
  }, [props]);
- // const myAlert = (msg) => {
- //  alert(msg)
- // }
- // useEffect(()=>{
- //  myAlert('update');
- // },[location]);
  return (
   <div className='map-container' ref={mapContainerRef} />
  );
